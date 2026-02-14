@@ -1,0 +1,222 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Index Page Styles */
+
+.navbar {
+  background-color: rgb(29, 53, 29);
+}
+.nav-link:hover {
+  color: #ffff00 !important;
+}
+
+#hero {
+  background-image: url("images/home-bg.jpg");
+  background-size: cover;
+  height: 640px;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+}
+
+.clear {
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.3);
+}
+
+.category-block {
+  height: 300px;
+}
+
+.category-bg {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.category-block:hover .category-bg {
+  transform: scale(1.1);
+}
+
+/* ------------------------ END Index Page Styles------------------- */
+
+/* Products page Styles */
+/* ========== PRODUCTS PAGE ========== */
+
+/* Product image wrapper - responsive sizes */
+.product-image-wrapper {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 576px) {
+  .product-image-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-image-wrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Product card styling */
+.product {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  min-height: 280px;
+}
+
+@media (min-width: 768px) {
+  .product {
+    min-height: 320px;
+  }
+}
+
+.product:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.product p:hover {
+  color: #848484;
+}
+
+/* Buy now button */
+.buy-now {
+  background-color: #008000;
+  transition: background-color 0.3s ease;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .buy-now {
+    font-size: 1rem;
+  }
+}
+
+.buy-now:hover {
+  background-color: #e0b000 !important;
+}
+/* ----------------------END Offers page styles---------------------------- */
+/* ========== GALLERY PAGE ========== */
+/* Gallery item styling with background image */
+.gallery-item {
+  height: 220px;
+  cursor: pointer;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Text hidden by default */
+.img-text {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Hover effects */
+.gallery-item:hover {
+  border-color: rgb(29, 53, 29);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px) scale(1.02);
+}
+
+.gallery-item:hover .img-text {
+  opacity: 1;
+}
+/* Product Details page styles */
+/* Main product image */
+.main-image {
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 576px) {
+  .main-image {
+    max-width: 450px;
+    height: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .main-image {
+    max-width: 500px;
+    height: 500px;
+  }
+}
+
+/* Thumbnails */
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  border-width: 3px;
+  border-color: #ddd;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+@media (min-width: 576px) {
+  .thumbnail {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (min-width: 768px) {
+  .thumbnail {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.thumbnail:hover {
+  border-color: #2d5016;
+}
+
+/* Quantity controls */
+.quantity-controls input {
+  font-size: 18px;
+}
+
+.quantity-controls input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.quantity-controls button:hover {
+  background-color: #f0f0f0 !important;
+}
+
+/* Add to cart button */
+.action-buttons .btn {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  background-color: #234012 !important;
+}
+
+/* Responsive text sizing using clamp */
+@media (max-width: 575px) {
+  .product-description {
+    font-size: 14px;
+  }
+}
+/* ----------------------END product details page styles---------------------------- */

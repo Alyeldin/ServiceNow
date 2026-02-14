@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body
+    class="d-flex flex-column min-vh-100"
+    style="background-color: rgb(29, 53, 29)"
+  >
+    <header>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold fs-2 d-flex" href="index.html">
+            <span class="text-white text-uppercase">Fresh</span>
+            <span class="text-warning text-uppercase p-0">Market</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav gap-3">
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="products.html"
+                  >Products</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="offers.html"
+                  >Offers</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="contact.html"
+                  >Contact</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="gallery.html"
+                  >Gallery</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container py-4 py-md-5">
+        <div class="row g-4 g-lg-5 bg-white mb-5">
+          <!-- Product Image Section -->
+          <div class="col-12 col-lg-6">
+            <div class="product-image-section">
+              <!-- Main Image -->
+              <div
+                class="main-image bg-white rounded-5 d-flex align-items-center justify-content-center p-4 p-md-5 mb-3 mb-md-4 mx-auto"
+              >
+                <img
+                  src="images/gallery1.jpg"
+                  alt="Fresh Red Apples"
+                  class="rounded-circle w-100 h-100"
+                  style="object-fit: cover"
+                />
+              </div>
+
+              <!-- Thumbnails -->
+              <div
+                class="d-flex gap-2 gap-md-3 justify-content-start justify-content-md-start"
+              >
+                <div class="thumbnail border rounded-4 overflow-hidden">
+                  <img
+                    src="images/gallery1.jpg"
+                    alt="Apples view 1"
+                    class="w-100 h-100"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <div class="thumbnail border rounded-4 overflow-hidden">
+                  <img
+                    src="images/gallery1.jpg"
+                    alt="Apples view 2"
+                    class="w-100 h-100"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <div class="thumbnail border rounded-4 overflow-hidden">
+                  <img
+                    src="images/gallery1.jpg"
+                    alt="Apples view 3"
+                    class="w-100 h-100"
+                    style="object-fit: cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Info Section -->
+          <div class="col-12 col-lg-6">
+            <div class="product-info-section">
+              <!-- Category Badge -->
+              <div
+                class="product-category text-uppercase fw-semibold mb-2 small"
+                style="color: #d4af37; letter-spacing: 1px"
+              >
+                Fresh Fruits
+              </div>
+
+              <!-- Product Title -->
+              <h1
+                class="product-title fw-semibold mb-3"
+                style="color: #2d5016; font-size: clamp(28px, 5vw, 42px)"
+              >
+                Fresh Red Apples
+              </h1>
+
+              <!-- Price -->
+              <div
+                class="product-price fw-bold mb-1"
+                style="color: #2d5016; font-size: clamp(28px, 4vw, 36px)"
+              >
+                $4.99
+              </div>
+              <div class="price-unit text-secondary mb-4 mb-md-5">per lb</div>
+
+              <!-- Description -->
+              <p
+                class="product-description text-secondary mb-4 mb-md-5"
+                style="line-height: 1.8"
+              >
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab
+                sint, rem sunt voluptas repellat nihil ad similique recusandae.
+                Dolorem optio nam modi nostrum enim temporibus cumque saepe
+                facere, recusandae aliquid? Veritatis nihil beatae minus
+                incidunt.
+              </p>
+
+              <!-- Quantity Selector -->
+              <div class="d-flex align-items-center gap-3 mb-4 mb-md-5">
+                <label class="fw-semibold mb-0">Quantity:</label>
+                <div
+                  class="quantity-controls d-flex align-items-center border rounded-3 overflow-hidden"
+                >
+                  <button
+                    class="btn btn-light border-0 px-3 px-md-4 py-2 fs-5"
+                    style="color: #2d5016"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    class="form-control border-0 text-center fw-semibold"
+                    value="1"
+                    min="1"
+                    style="
+                      width: 60px;
+                      border-left: 2px solid #ddd !important;
+                      border-right: 2px solid #ddd !important;
+                    "
+                  />
+                  <button
+                    class="btn btn-light border-0 px-3 px-md-4 py-2 fs-5"
+                    style="color: #2d5016"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <div class="action-buttons">
+                <button
+                  class="btn btn-lg text-white fw-semibold px-5 py-3 rounded-pill w-100 w-md-auto mb-5"
+                  style="background-color: #2d5016"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer
+      class="text-white text-center py-3 mt-auto"
+      style="background-color: rgb(29, 53, 29)"
+    >
+      <p class="mb-0 fs-5">&copy; 2026 My Website. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

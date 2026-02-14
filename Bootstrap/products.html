@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body
+    class="d-flex flex-column min-vh-100"
+    style="background-color: rgb(29, 53, 29)"
+  >
+    <header>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold fs-2 d-flex" href="index.html">
+            <span class="text-white text-uppercase">Fresh</span>
+            <span class="text-warning text-uppercase p-0">Market</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav gap-3">
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="products.html"
+                  >Products</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="offers.html"
+                  >Offers</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="contact.html"
+                  >Contact</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold text-white" href="gallery.html"
+                  >Gallery</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section id="Products" class="py-5 bg-white">
+        <div class="container">
+          <h2 class="text-center text-dark fw-bold display-4 mb-5">Products</h2>
+
+          <div class="row g-3 g-md-4 justify-content-center">
+            <!-- Product 1: Apples -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div
+                class="product text-center border rounded-4 p-3 p-md-4 h-100 d-flex flex-column"
+              >
+                <h3 class="fs-6 fs-md-5 mb-2 mb-md-3">Apples</h3>
+                <div class="product-image-wrapper mx-auto mb-2 mb-md-3">
+                  <img
+                    src="images/apples.jpg"
+                    alt="Apples"
+                    class="rounded-circle w-100 h-100"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <p class="text-dark mb-3 mb-md-4 flex-grow-1 small">
+                  Fresh and delicious fruits.
+                </p>
+                <a
+                  href="product-details.html"
+                  class="text-decoration-none mt-auto"
+                >
+                  <button
+                    class="btn btn-success text-white fw-semibold px-3 px-md-4 py-2 rounded-pill buy-now w-100"
+                  >
+                    Buy Now
+                  </button>
+                </a>
+              </div>
+            </div>
+
+            <!-- Product 2: Mangos -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div
+                class="product text-center border rounded-4 p-3 p-md-4 h-100 d-flex flex-column"
+              >
+                <h3 class="fs-6 fs-md-5 mb-2 mb-md-3">Mangos</h3>
+                <div class="product-image-wrapper mx-auto mb-2 mb-md-3">
+                  <img
+                    src="images/mangos.jpg"
+                    alt="Mangos"
+                    class="rounded-circle w-100 h-100"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <p class="text-dark mb-3 mb-md-4 flex-grow-1 small">
+                  Healthy and organic mangos.
+                </p>
+                <a
+                  href="product-details.html"
+                  class="text-decoration-none mt-auto"
+                >
+                  <button
+                    class="btn btn-success text-white fw-semibold px-3 px-md-4 py-2 rounded-pill buy-now w-100"
+                  >
+                    Buy Now
+                  </button>
+                </a>
+              </div>
+            </div>
+
+            <!-- Product 3: Peaches -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div
+                class="product text-center border rounded-4 p-3 p-md-4 h-100 d-flex flex-column"
+              >
+                <h3 class="fs-6 fs-md-5 mb-2 mb-md-3">Peaches</h3>
+                <div class="product-image-wrapper mx-auto mb-2 mb-md-3">
+                  <img
+                    src="images/peaches.jpg"
+                    alt="Peaches"
+                    class="rounded-circle w-100 h-100"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <p class="text-dark mb-3 mb-md-4 flex-grow-1 small">
+                  Delicious and juicy peaches.
+                </p>
+                <a
+                  href="product-details.html"
+                  class="text-decoration-none mt-auto"
+                >
+                  <button
+                    class="btn btn-success text-white fw-semibold px-3 px-md-4 py-2 rounded-pill buy-now w-100"
+                  >
+                    Buy Now
+                  </button>
+                </a>
+              </div>
+            </div>
+
+            <!-- Product 4: Grapes -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div
+                class="product text-center border rounded-4 p-3 p-md-4 h-100 d-flex flex-column"
+              >
+                <h3 class="fs-6 fs-md-5 mb-2 mb-md-3">Grapes</h3>
+                <div class="product-image-wrapper mx-auto mb-2 mb-md-3">
+                  <img
+                    src="images/grapes.jpg"
+                    alt="Grapes"
+                    class="rounded-circle w-100 h-100"
+                    style="object-fit: cover"
+                  />
+                </div>
+                <p class="text-dark mb-3 mb-md-4 flex-grow-1 small">
+                  High-quality grapes.
+                </p>
+                <a
+                  href="product-details.html"
+                  class="text-decoration-none mt-auto"
+                >
+                  <button
+                    class="btn btn-success text-white fw-semibold px-3 px-md-4 py-2 rounded-pill buy-now w-100"
+                  >
+                    Buy Now
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer
+      class="text-white text-center py-3 mt-auto"
+      style="background-color: rgb(29, 53, 29)"
+    >
+      <p class="mb-0 fs-5">&copy; 2026 My Website. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
