@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav id="navbar">
+        <div id="logo">
+          <a href="index.html" style="text-decoration: none">
+            <span id="word1">Fresh</span>
+            <span id="word2">Market</span>
+          </a>
+        </div>
+        <!-- <img src="images/logo.png" alt="Logo" class="logo"> -->
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="offers.html">Offers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="product-container">
+        <div class="product-image-section">
+          <div class="main-image">
+            <img src="images/gallery1.jpg" alt="Fresh Red Apples" />
+          </div>
+          <div class="thumbnail-container">
+            <div class="thumbnail">
+              <img src="images/gallery1.jpg" alt="Apples view 1" />
+            </div>
+            <div class="thumbnail">
+              <img src="images/gallery1.jpg" alt="Apples view 2" />
+            </div>
+            <div class="thumbnail">
+              <img src="images/gallery1.jpg" alt="Apples view 3" />
+            </div>
+          </div>
+        </div>
+
+        <div class="product-info-section">
+          <div class="product-category">Fresh Fruits</div>
+          <h1 class="product-title">Fresh Red Apples</h1>
+
+          <div class="product-price">$4.99</div>
+          <div class="price-unit">per lb</div>
+
+          <p class="product-description">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab sint,
+            rem sunt voluptas repellat nihil ad similique recusandae. Dolorem
+            optio nam modi nostrum enim temporibus cumque saepe facere,
+            recusandae aliquid? Veritatis nihil beatae minus incidunt.
+          </p>
+
+          <div class="quantity-selector">
+            <label>Quantity:</label>
+            <div class="quantity-controls">
+              <button>−</button>
+              <input type="number" id="quantity" value="1" min="1" />
+              <button>+</button>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>&copy; 2026 My Website. All rights reserved.</footer>
+  </body>
+</html>

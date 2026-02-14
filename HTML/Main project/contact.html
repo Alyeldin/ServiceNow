@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav id="navbar">
+        <div id="logo">
+          <a href="index.html" style="text-decoration: none">
+            <span id="word1">Fresh</span>
+            <span id="word2">Market</span>
+          </a>
+        </div>
+        <!-- <img src="images/logo.png" alt="Logo" class="logo"> -->
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="offers.html">Offers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div id="formdiv">
+        <h2>Get in touch</h2>
+        <form id="contact">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Your name"
+          /><br /><br />
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          /><br /><br />
+          <label for="message">Message:</label><br />
+          <textarea id="message" name="message" rows="5" cols="40"></textarea
+          ><br /><br />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </main>
+    <footer>&copy; 2026 My Website. All rights reserved.</footer>
+  </body>
+</html>
