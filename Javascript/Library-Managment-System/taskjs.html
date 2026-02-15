@@ -6,43 +6,169 @@
     <title>Document</title>
   </head>
   <script>
-    const menu =
-      "===== MENU =====\n1 → Add New Book \n2 → Borrow Book \n3 → Return Book \n4 → Show Library Report \n5 → Exit";
+    let Library = [];
 
     function addBook() {
-      alert("1");
-      bookSystem();
+      let bookTitle = prompt("Enter book title: ");
+      if (bookTitle === "") {
+        alert("Title Cannot be empty. Please try again  ");
+        return;
+      }
+      if (Library.some((book) => book.title === bookTitle)) {
+        alert(
+          "Book with the same title already exists. Will increase copies instead.",
+        );
+        function increase(bookTitle) {
+          let book = Library.find((book) => book.title === bookTitle);
+          book.copies++;
+          alert("Copies increased successfully.");
+          return;
+        }
+        increase(bookTitle);
+        return;
+      }
+
+      let authorName = prompt("Enter author name: ");
+      if (authorName === "") {
+        alert("Author Name Cannot be empty . Please try again  ");
+        return;
+      }
+      let copies = parseInt(prompt("Enter number of copies: "));
+      if (isNaN(copies) || copies <= 0) {
+        alert("Copies must be a number greater than zero. Please try again  ");
+        return;
+      }
+      let book = {
+        title: bookTitle,
+        author: authorName,
+        copies: copies,
+        borrowedCount: 0,
+      };
+      Library.push(book);
+      alert("Book added successfully.");
+
+      return;
     }
     function borrowBook() {
-      alert("2");
-      bookSystem();
+      let desiredBook = prompt(
+        "Enter the title of the book you wish to borrow: ",
+      );
+      if (desiredBook === null || desiredBook.trim() === "") {
+        alert("You canceled the operation.");
+        return;
+      }
+      let book = Library.find((book) => book.title === desiredBook);
+      if (!book) {
+        alert("Book not found. Please try again.");
+        return;
+      }
+      if (book.copies === 0) {
+        alert("No available copies. Please try again.");
+        return;
+      }
+      book.copies--;
+      book.borrowed++;
+      book.borrowedCount++;
+      alert("Book borrowed successfully.");
+      return;
     }
     function returnBook() {
-      alert("3");
-      bookSystem();
+      let desiredBook = prompt(
+        "Enter the title of the book you wish to return: ",
+        "",
+      );
+      if (desiredBook === null || desiredBook.trim() === "") {
+        alert("You canceled the operation.");
+        return;
+      }
+      let book = Library.find((book) => book.title === desiredBook);
+      if (!book) {
+        alert("Book not found. Please try again.");
+        return;
+      }
+      if (book.borrowed === 0) {
+        alert("No borrowed copies. Please try again.");
+        return;
+      }
+      book.copies++;
+      book.borrowed--;
+      alert("Book returned successfully.");
+
+      return;
     }
     function calculateTotalBooks() {
-      alert("4");
-      bookSystem();
+      let totalAvailable = Library.reduce(
+        (total, book) => total + book.copies,
+        0,
+      );
+      let totalBorrowed = Library.reduce(
+        (total, book) => total + book.borrowed,
+        0,
+      );
+      return (totalAvailable, totalBorrowed);
+    }
+    function calculateStatus(copies) {
+      let status = "Available";
+      if (copies <= 2 && book.copies > 0) status = "Limited";
+      if (copies === 0) status = "Out of Stock";
+      return status;
     }
     function showReport() {
-      alert("5");
-      bookSystem();
+      let totalAvailable,
+        totalBorrowed = calculateTotalBooks();
+      let report = `--Total Available Books: ${totalAvailable}\n--Total Borrowed Books: ${totalBorrowed}\n\n`;
+      for (let i = 0; i < Library.length; i++) {
+        let status = calculateStatus(Library[i].copies);
+        report += `-Book: ${Library[i].title}, Author: ${Library[i].author}, Copies: ${Library[i].copies},
+        -Borrowed: ${Library[i].borrowed}\n 
+        -Status: ${calculateStatus(Library[i])}\n
+        -Borrowed Count History: ${Library[i].borrowedCount}\n`;
+      }
+      alert(report);
+      return;
     }
 
-    function bookSystem() {
-      opt = prompt(menu);
-      if (opt == 1) addBook();
-      if (opt == 2) borrowBook();
-      if (opt == 3) returnBook();
-      if (opt == 4) showReport();
-      if (opt == 5) exit();
-      if (opt > 5 || opt < 1) bookSystem();
-    }
+    let opt;
+    do {
+      opt = prompt(
+        "===== MENU ===== \n1 → Add New Book \n2 →  Borrow Book \n3 → Return Book \n4 → Show Library Report \n5 → Exit",
+      );
+      switch (opt) {
+        case "1":
+          addBook();
+          break;
+        case "2":
+          borrowBook();
+          break;
+        case "3":
+          returnBook();
+          break;
+        case "4":
+          showReport();
+          break;
+        case "5":
+          break;
+        default:
+          alert("Invalid Option! Please try again.");
+      }
+    } while (opt != "5");
 
-    bookSystem();
+    // const menu =
+    //   "===== MENU =====\n1 → Add New Book \n2 → Borrow Book \n3 → Return Book \n4 → Show Library Report \n5 → Exit";
 
-    let AllBooks = [];
-    let OneBook = {};
+    // function bookSystem() {
+    //   opt = prompt(menu);
+    //   if (opt == 1) addBook();
+    //   if (opt == 2) borrowBook();
+    //   if (opt == 3) returnBook();
+    //   if (opt == 4) showReport();
+    //   if (opt == 5) exit();
+    //   if (opt > 5 || opt < 1) bookSystem();
+    // }
+
+    // bookSystem();
+
+    // let AllBooks = [];
+    // let OneBook = {};
   </script>
 </html>
