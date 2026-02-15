@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    const menu =
+      "===== MENU =====\n1 → Add New Book \n2 → Borrow Book \n3 → Return Book \n4 → Show Library Report \n5 → Exit";
+
+    function addBook() {
+      alert("1");
+      bookSystem();
+    }
+    function borrowBook() {
+      alert("2");
+      bookSystem();
+    }
+    function returnBook() {
+      alert("3");
+      bookSystem();
+    }
+    function calculateTotalBooks() {
+      alert("4");
+      bookSystem();
+    }
+    function showReport() {
+      alert("5");
+      bookSystem();
+    }
+
+    function bookSystem() {
+      opt = prompt(menu);
+      if (opt == 1) addBook();
+      if (opt == 2) borrowBook();
+      if (opt == 3) returnBook();
+      if (opt == 4) showReport();
+      if (opt == 5) exit();
+      if (opt > 5 || opt < 1) bookSystem();
+    }
+
+    bookSystem();
+
+    let AllBooks = [];
+    let OneBook = {};
+  </script>
+</html>
