@@ -121,6 +121,23 @@
     // console.log("end");
 
     // Practice 5
+    // console.log("A");
+    // setTimeout(() => {
+    //   console.log("B");
+    // }, 0);
+    // Promise.resolve().then(() => {
+    //   console.log("C");
+    // });
+    // Promise.resolve().then(() => {
+    //   console.log("D");
+    //   setTimeout(() => {
+    //     console.log("E");
+    //   }, 0);
+    // });
+    // console.log("F");
+
+    //practice 6
+
     console.log("A");
     setTimeout(() => {
       console.log("B");
@@ -128,12 +145,9 @@
     Promise.resolve().then(() => {
       console.log("C");
     });
-    Promise.resolve().then(() => {
-      console.log("D");
-      setTimeout(() => {
-        console.log("E");
-      }, 0);
-    });
+    for (let i = 0; i < 1000000; i++) {
+      if (i == 99999) console.log("for loop");
+    }
     console.log("F");
   </script>
 </html>
