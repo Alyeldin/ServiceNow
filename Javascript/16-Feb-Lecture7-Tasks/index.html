@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+    , initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Weather App 🌥️</h1>
+    <select id="city" style="width: 250px">
+      <option value="New York">New York</option>
+      <option value="Los Angeles">Los Angeles</option>
+      <option value="Chicago">Chicago</option>
+      <option value="London">London</option>
+      <option value="Berlin">Berlin</option>
+      <option value="Paris">Paris</option>
+      <option value="Tokyo">Tokyo</option>
+    </select>
+    <!-- <input type="text" id="city" /> -->
+    <button id="checker" onclick="weather()">Check weather</button>
+    <h3 id="result"></h3>
+  </body>
+  <script>
+    //Practice 1
+
+    // function getdata() {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       resolve("Data Loaded");
+    //     }, 4000);
+    //   });
+    // }
+
+    // getdata().then((result) => {
+    //   console.log(result);
+    // });
+
+    //Practice 2
+
+    // function getuser(id) {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       if (typeof id !== "number" || id < 1) {
+    //         reject(new Error("Invalid ID provided."));
+    //       } else {
+    //         resolve({ id: id, name: "Aly" });
+    //       }
+    //     }, 4000);
+    //   });
+    // }
+
+    // getuser(-1)
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error.message);
+    //   });
+
+    //Practice 3
+
+    // async function displayUser() {
+    //   try {
+    //     let user = await getuser(1);
+    //     console.log(user.name);
+    //   } catch (error) {
+    //     console.error(error.message);
+    //   }
+    // }
+
+    // displayUser();
+
+    // Task1
+
+    function getweather(city) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (city === "Paris") {
+            resolve("Weather is Sunny today ☀️");
+          } else if (city === "London" || city === "Berlin") {
+            resolve(" it's cloudy weather today 🌥️");
+          } else if (
+            city === "New York" ||
+            city === "Los Angeles" ||
+            city === "Chicago"
+          ) {
+            resolve(" it's Raining today ☔ 🌧️");
+          } else {
+            reject("City not found 😕");
+          }
+        }, 1000);
+      });
+    }
+
+    async function weather() {
+      let city = document.getElementById("city").value;
+      let result = document.getElementById("result");
+      result.textContent = "Loading...";
+      try {
+        let w = await getweather(city);
+        result.textContent = w;
+      } catch (error) {
+        result.textContent = error;
+      }
+    }
+
+    // getweather().then((result) => {
+    //   console.log(result);
+    // });
+
+    // // if (city === "Paris") {
+    // //   return "Sunny";
+    // // } else {
+    // //   return "Unknow city";
+    // // }
+
+    // async function displayUser() {
+    //   try {
+    //     let user = await getuser(1);
+    //     console.log(user.name);
+    //   } catch (error) {
+    //     console.error(error.message);
+    //   }
+    // }
+
+    // displayUser();
+  </script>
+</html>
