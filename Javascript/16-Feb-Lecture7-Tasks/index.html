@@ -110,16 +110,30 @@
 
     //Practice 4
 
-    console.log(" start");
+    // console.log(" start");
 
-    setTimeout(() => {
-      console.log("middle");
-    }, 0);
-    Promise.resolve().then(() => {
-      console.log("promise");
-    });
-    console.log("end");
+    // setTimeout(() => {
+    //   console.log("middle");
+    // }, 0);
+    // Promise.resolve().then(() => {
+    //   console.log("promise");
+    // });
+    // console.log("end");
 
     // Practice 5
+    console.log("A");
+    setTimeout(() => {
+      console.log("B");
+    }, 0);
+    Promise.resolve().then(() => {
+      console.log("C");
+    });
+    Promise.resolve().then(() => {
+      console.log("D");
+      setTimeout(() => {
+        console.log("E");
+      }, 0);
+    });
+    console.log("F");
   </script>
 </html>
