@@ -74,7 +74,7 @@
 
     // displayUser();
 
-    // Task1
+    // Task1 & 2
 
     // function getweather(city) {
     //   return new Promise((resolve, reject) => {
@@ -186,5 +186,31 @@
     // fetch("https://jsonplaceholder.typicode.com/todos")
     //   .then((res) => res.json())
     //   .then((todos) => todos.forEach((t) => console.log(t.title)));
+
+    //Task 3
+    let url = "https://jsonplaceholder.typicode.com/todos";
+    let comp = 0;
+    let title = [];
+    let mylist = [];
+    fetch(url)
+      .then((res) => res.json())
+      .then(
+        (todos) =>
+          todos.forEach((t) => {
+            if (t.completed == true) {
+              console.log(t.completed);
+              comp++;
+            }
+            if (t.title.length > 20) {
+              title.push(t.title);
+            }
+            mylist.push(t.id);
+            mylist.push(t.title.length);
+          }),
+        console.log(comp),
+      )
+      .then(() => console.log("Completed", comp));
+    console.log(title);
+    console.log(mylist);
   </script>
 </html>
