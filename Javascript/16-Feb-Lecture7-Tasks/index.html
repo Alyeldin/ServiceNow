@@ -138,16 +138,27 @@
 
     //practice 6
 
-    console.log("A");
-    setTimeout(() => {
-      console.log("B");
-    }, 0);
-    Promise.resolve().then(() => {
-      console.log("C");
-    });
-    for (let i = 0; i < 1000000; i++) {
-      if (i == 99999) console.log("for loop");
-    }
-    console.log("F");
+    // console.log("A");
+    // setTimeout(() => {
+    //   console.log("B");
+    // }, 0);
+    // Promise.resolve().then(() => {
+    //   console.log("C");
+    // });
+    // for (let i = 0; i < 1000000; i++) {
+    //   if (i == 99999) console.log("for loop");
+    // }
+    // console.log("F");
+
+    //practice 7
+    let url = "https://fake-json-api.mock.beeceptor.com/users";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log(data[0].name);
+        console.log(data[1].email);
+        console.log(data[4].phone);
+      });
   </script>
 </html>

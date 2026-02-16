@@ -6,8 +6,7 @@
     <title>Document</title>
   </head>
   <script>
-    let Library = [];
-    let book = {};
+    let Library = []; // Initialize the Library array
 
     function addBook() {
       let bookTitle = prompt("Enter book title: ");
@@ -26,30 +25,32 @@
           return;
         }
         increase(bookTitle);
-        return;
-      }
+      } else {
+        let authorName = prompt("Enter author name: ");
+        if (authorName === "") {
+          alert("Author Name Cannot be empty . Please try again  ");
+          return;
+        }
+        let copies = parseInt(prompt("Enter number of copies: "));
+        if (isNaN(copies) || copies <= 0) {
+          alert(
+            "Copies must be a number greater than zero. Please try again  ",
+          );
+          return;
+        }
+        let book = {
+          title: bookTitle,
+          author: authorName,
+          copies: copies,
+          borrowedCount: 0,
+        };
+        Library.push(book);
+        alert("Book added successfully.");
 
-      let authorName = prompt("Enter author name: ");
-      if (authorName === "") {
-        alert("Author Name Cannot be empty . Please try again  ");
         return;
       }
-      let copies = parseInt(prompt("Enter number of copies: "));
-      if (isNaN(copies) || copies <= 0) {
-        alert("Copies must be a number greater than zero. Please try again  ");
-        return;
-      }
-      let book = {
-        title: bookTitle,
-        author: authorName,
-        copies: copies,
-        borrowedCount: 0,
-      };
-      Library.push(book);
-      alert("Book added successfully.");
-
-      return;
     }
+
     function borrowBook() {
       let desiredBook = prompt(
         "Enter the title of the book you wish to borrow: ",
@@ -63,6 +64,7 @@
         alert("Book not found. Please try again.");
         return;
       }
+
       if (book.copies === 0) {
         alert("No available copies. Please try again.");
         return;
@@ -70,9 +72,13 @@
       book.copies--;
       book.borrowed++;
       book.borrowedCount++;
-      alert("Book borrowed successfully.");
-      return;
+
+      alert(
+        `Book "${desiredBook}" borrowed successfully.\nAvailable Copies: ${book.copies},
+    Borrowed Count: ${book.borrowed}\n`,
+      );
     }
+
     function returnBook() {
       let desiredBook = prompt(
         "Enter the title of the book you wish to return: ",
@@ -87,35 +93,55 @@
         alert("Book not found. Please try again.");
         return;
       }
+
       if (book.borrowed === 0) {
         alert("No borrowed copies. Please try again.");
         return;
       }
       book.copies++;
       book.borrowed--;
-      alert("Book returned successfully.");
 
-      return;
+      alert(
+        `Book "${desiredBook}" returned successfully.\nAvailable Copies: ${book.copies},
+    Borrowed Count: ${book.borrowed}\n`,
+      );
     }
-    function calculateTotalBooks() {
+
+    function calculateTotalBooks(Library) {
       let totalAvailable = 0;
       let totalBorrowed = 0;
 
       for (let i = 0; i < Library.length; i++) {
-        totalAvailable += Library[i].availableCopies;
-        totalBorrowed += Library[i].borrowedCopies;
+        totalAvailable += parseInt(Library[i].availableCopies);
+        totalBorrowed += parseInt(Library[i].borrowedCopies);
       }
-      return (totalAvailable, totalBorrowed);
+
+      return [totalAvailable, totalBorrowed];
     }
+
     function calculateStatus(copies) {
       let status = "Available";
       if (copies <= 2 && book.copies > 0) status = "Limited";
       if (copies === 0) status = "Out of Stock";
       return status;
     }
+
     function showReport() {
-      let totalAvailable,
-        totalBorrowed = calculateTotalBooks();
+      if (!Library.length) {
+        alert("The library is empty. Please add books first.");
+        return;
+      }
+
+      let calresults = calculateTotalBooks(Library);
+
+      let totalAvailable = calresults[0];
+      let totalBorrowed = calresults[1];
+
+      console.log("Total Available Books:", totalAvailable);
+
+      console.log("weselna hena");
+      console.log("Total Available Books:", totalAvailable);
+
       let report = `--Total Available Books: ${totalAvailable}\n--Total Borrowed Books: ${totalBorrowed}\n\n`;
       for (let i = 0; i < Library.length; i++) {
         let status = calculateStatus(Library[i].copies);
@@ -125,10 +151,8 @@
         -Borrowed Count History: ${Library[i].borrowedCount}\n`;
       }
       alert(report);
-      return;
     }
 
-    let opt;
     do {
       opt = prompt(
         "===== MENU ===== \n1 → Add New Book \n2 →  Borrow Book \n3 → Return Book \n4 → Show Library Report \n5 → Exit",
