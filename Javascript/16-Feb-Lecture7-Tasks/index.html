@@ -10,7 +10,8 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Weather App 🌥️</h1>
+    <!-- Task 1 and 2 -->
+    <!-- <h1>Weather App 🌥️</h1>
     <select id="city" style="width: 250px">
       <option value="New York">New York</option>
       <option value="Los Angeles">Los Angeles</option>
@@ -20,9 +21,8 @@
       <option value="Paris">Paris</option>
       <option value="Tokyo">Tokyo</option>
     </select>
-    <!-- <input type="text" id="city" /> -->
     <button id="checker" onclick="weather()">Check weather</button>
-    <h3 id="result"></h3>
+    <h3 id="result"></h3> -->
   </body>
   <script>
     //Practice 1
@@ -76,57 +76,50 @@
 
     // Task1
 
-    function getweather(city) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (city === "Paris") {
-            resolve("Weather is Sunny today ☀️");
-          } else if (city === "London" || city === "Berlin") {
-            resolve(" it's cloudy weather today 🌥️");
-          } else if (
-            city === "New York" ||
-            city === "Los Angeles" ||
-            city === "Chicago"
-          ) {
-            resolve(" it's Raining today ☔ 🌧️");
-          } else {
-            reject("City not found 😕");
-          }
-        }, 1000);
-      });
-    }
+    // function getweather(city) {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       if (city === "Paris") {
+    //         resolve("Weather is Sunny today ☀️");
+    //       } else if (city === "London" || city === "Berlin") {
+    //         resolve(" it's cloudy weather today 🌥️");
+    //       } else if (
+    //         city === "New York" ||
+    //         city === "Los Angeles" ||
+    //         city === "Chicago"
+    //       ) {
+    //         resolve(" it's Raining today ☔ 🌧️");
+    //       } else {
+    //         reject("City not found 😕");
+    //       }
+    //     }, 1000);
+    //   });
+    // }
 
-    async function weather() {
-      let city = document.getElementById("city").value;
-      let result = document.getElementById("result");
-      result.textContent = "Loading...";
-      try {
-        let w = await getweather(city);
-        result.textContent = w;
-      } catch (error) {
-        result.textContent = error;
-      }
-    }
-
-    // getweather().then((result) => {
-    //   console.log(result);
-    // });
-
-    // // if (city === "Paris") {
-    // //   return "Sunny";
-    // // } else {
-    // //   return "Unknow city";
-    // // }
-
-    // async function displayUser() {
+    // async function weather() {
+    //   let city = document.getElementById("city").value;
+    //   let result = document.getElementById("result");
+    //   result.textContent = "Loading...";
     //   try {
-    //     let user = await getuser(1);
-    //     console.log(user.name);
+    //     let w = await getweather(city);
+    //     result.textContent = w;
     //   } catch (error) {
-    //     console.error(error.message);
+    //     result.textContent = error;
     //   }
     // }
 
-    // displayUser();
+    //Practice 4
+
+    console.log(" start");
+
+    setTimeout(() => {
+      console.log("middle");
+    }, 0);
+    Promise.resolve().then(() => {
+      console.log("promise");
+    });
+    console.log("end");
+
+    // Practice 5
   </script>
 </html>
