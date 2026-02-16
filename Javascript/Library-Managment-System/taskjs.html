@@ -7,6 +7,7 @@
   </head>
   <script>
     let Library = [];
+    let book = {};
 
     function addBook() {
       let bookTitle = prompt("Enter book title: ");
@@ -19,7 +20,7 @@
           "Book with the same title already exists. Will increase copies instead.",
         );
         function increase(bookTitle) {
-          let book = Library.find((book) => book.title === bookTitle);
+          book = Library.find((book) => book.title === bookTitle);
           book.copies++;
           alert("Copies increased successfully.");
           return;
@@ -97,14 +98,13 @@
       return;
     }
     function calculateTotalBooks() {
-      let totalAvailable = Library.reduce(
-        (total, book) => total + book.copies,
-        0,
-      );
-      let totalBorrowed = Library.reduce(
-        (total, book) => total + book.borrowed,
-        0,
-      );
+      let totalAvailable = 0;
+      let totalBorrowed = 0;
+
+      for (let i = 0; i < Library.length; i++) {
+        totalAvailable += Library[i].availableCopies;
+        totalBorrowed += Library[i].borrowedCopies;
+      }
       return (totalAvailable, totalBorrowed);
     }
     function calculateStatus(copies) {
@@ -152,23 +152,5 @@
           alert("Invalid Option! Please try again.");
       }
     } while (opt != "5");
-
-    // const menu =
-    //   "===== MENU =====\n1 → Add New Book \n2 → Borrow Book \n3 → Return Book \n4 → Show Library Report \n5 → Exit";
-
-    // function bookSystem() {
-    //   opt = prompt(menu);
-    //   if (opt == 1) addBook();
-    //   if (opt == 2) borrowBook();
-    //   if (opt == 3) returnBook();
-    //   if (opt == 4) showReport();
-    //   if (opt == 5) exit();
-    //   if (opt > 5 || opt < 1) bookSystem();
-    // }
-
-    // bookSystem();
-
-    // let AllBooks = [];
-    // let OneBook = {};
   </script>
 </html>

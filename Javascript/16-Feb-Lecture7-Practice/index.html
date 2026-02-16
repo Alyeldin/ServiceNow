@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+    , initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function getdata() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("Data Loaded");
+        }, 4000);
+      });
+    }
+
+    getdata().then((result) => {
+      console.log(result);
+    });
+  </script>
+</html>
