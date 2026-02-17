@@ -42,6 +42,7 @@
           title: bookTitle,
           author: authorName,
           copies: copies,
+          borrowed: 0,
           borrowedCount: 0,
         };
         Library.push(book);
@@ -72,6 +73,7 @@
       book.copies--;
       book.borrowed++;
       book.borrowedCount++;
+      console.log(book);
 
       alert(
         `Book "${desiredBook}" borrowed successfully.\nAvailable Copies: ${book.copies},
@@ -112,8 +114,8 @@
       let totalBorrowed = 0;
 
       for (let i = 0; i < Library.length; i++) {
-        totalAvailable += parseInt(Library[i].availableCopies);
-        totalBorrowed += parseInt(Library[i].borrowedCopies);
+        totalAvailable += parseInt(Library[i].copies);
+        totalBorrowed += parseInt(Library[i].borrowedCount);
       }
 
       return [totalAvailable, totalBorrowed];
@@ -121,7 +123,7 @@
 
     function calculateStatus(copies) {
       let status = "Available";
-      if (copies <= 2 && book.copies > 0) status = "Limited";
+      if (copies <= 2 && copies > 0) status = "Limited";
       if (copies === 0) status = "Out of Stock";
       return status;
     }
