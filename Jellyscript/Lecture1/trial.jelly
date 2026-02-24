@@ -1,0 +1,10 @@
+<j:jelly xmlns:j="jelly:core">
+
+    <j:set var="age" value="20"/>
+    <j:set var="name" value="John"/>
+
+    <j:if test="${age gt 18}">
+        <h1>Hello ${name}, you are ${age} years old.</h1>
+    </j:if>
+
+</j:jelly>

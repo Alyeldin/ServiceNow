@@ -1,0 +1,10 @@
+<j:jelly xmlns:j="jelly:core">
+
+    <j:set var="arr" value="hady, aly, yousef"/>
+
+    <j:forEach var="name" items="${arr}">
+        <h1>Hello ${name}!</h1>
+    </j:forEach>
+    
+
+</j:jelly>
