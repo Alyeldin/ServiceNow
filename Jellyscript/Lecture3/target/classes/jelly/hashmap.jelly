@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <j:jelly xmlns:j="jelly:core">
-
-    
-
-<j:new className="java.util.HashMap" var="userMap"/>
-
+    <j:new className="java.util.HashMap" var="userMap"/>
     <j:invoke on="${userMap}" method="put">
         <j:arg value="name"/>
         <j:arg value="Aly Khairy"/>
@@ -18,12 +13,10 @@
         <j:arg value="city"/>
         <j:arg value="Cairo"/>
     </j:invoke>
-
     <j:invoke on="${userMap}" method="put">
         <j:arg value="occupation"/>
         <j:arg value="Software Engineer"/>
     </j:invoke>
-
     <j:invoke on="${userMap}" method="get" var="username">
         <j:arg value="name"/>
     </j:invoke>
@@ -33,10 +26,7 @@
     <j:invoke on="${userMap}" method="get" var="usercity">
         <j:arg value="city"/>
     </j:invoke>
-
     <!-- Displaying the HashMap in an HTML table -->
-
-
     <html>
         <head>
             <link
@@ -44,7 +34,6 @@
                 rel="stylesheet"
             />
         </head>
-
         <body>
             <table class="table table-striped">
                 <thead>
@@ -53,9 +42,8 @@
                         <th>Value</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                   <tr>
+                    <tr>
                         <td>Name</td>
                         <td>${username}</td>
                     </tr>
@@ -67,15 +55,12 @@
                         <td>City</td>
                         <td>${usercity}</td>
                     </tr>
-                 
                 </tbody>
             </table>
-
             <script
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
                 crossorigin="anonymous">
             </script>
         </body>
     </html>
-
 </j:jelly>
