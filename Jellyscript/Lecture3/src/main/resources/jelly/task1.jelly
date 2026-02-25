@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<j:jelly xmlns:j="jelly:core">
+
+    <!-- Create ArrayList -->
+    <j:new className="java.util.ArrayList" var="arr"/>
+
+    <!-- Add items -->
+    <j:invoke on="${arr}" method="add">
+        <j:arg value="hady"/>
+    </j:invoke>
+
+    <j:invoke on="${arr}" method="add">
+        <j:arg value="hady"/>
+    </j:invoke>
+
+    <j:invoke on="${arr}" method="add">
+        <j:arg value="hady"/>
+    </j:invoke>
+
+    <j:invoke on="${arr}" method="add">
+        <j:arg value="hady"/>
+    </j:invoke>
+
+    <html>
+        <head>
+            <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+                rel="stylesheet"
+            />
+        </head>
+
+        <body>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <j:forEach var="name" items="${arr}">
+                        <tr>
+                            <td>${name}</td>
+                        </tr>
+                    </j:forEach>
+                </tbody>
+            </table>
+
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                crossorigin="anonymous">
+            </script>
+        </body>
+    </html>
+
+</j:jelly>
