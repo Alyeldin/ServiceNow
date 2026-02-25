@@ -10,11 +10,17 @@
   <body>
     <div ng-app="myApp" ng-controller="myCtrl">
       <h1>{{greeting}}</h1>
+      <p>{{message}}</p>
+      <button ng-click="message='you clicked the button!'">Click Me</button>
     </div>
     <script>
       var app = angular.module("myApp", []);
       app.controller("myCtrl", function ($scope) {
         $scope.greeting = "ahlan ahlan bik ya angular";
+        $scope.message = "Click the button to change this message";
+        $scope.changeMessage = function () {
+          $scope.message = "you clicked the button!";
+        };
       });
     </script>
   </body>
