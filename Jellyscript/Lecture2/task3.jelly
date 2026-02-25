@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<j:jelly xmlns:j="jelly:core">
+
+    
+
+<j:new className="java.util.Random" var="random"/>
+    <j:invoke on="${random}" method="nextInt" var="randNum">
+        <j:arg value="100" type="int"/>
+    </j:invoke>
+    Random number: ${randNum}
+    
+
+   
+
+</j:jelly>

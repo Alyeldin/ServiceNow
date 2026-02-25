@@ -23,7 +23,7 @@
                 <configuration>
                     <mainClass>org.apache.commons.jelly.Jelly</mainClass>
                     <arguments>
-                        <argument>task2.jelly</argument>
+                        <argument>task3.jelly</argument>
                     </arguments>
                 </configuration>
             </plugin>
