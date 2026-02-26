@@ -47,7 +47,13 @@
           placeholder="Enter Password"
         />
         <br />
-        <button ng-click="login()" class="btn btn-primary">Login</button>
+        <button
+          ng-click="login()"
+          ng-disabled="!email || !password"
+          class="btn btn-primary"
+        >
+          Login
+        </button>
       </form>
       <div class="container mt-3">
         <p>{{userData}}</p>
