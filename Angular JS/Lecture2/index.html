@@ -27,7 +27,11 @@
       justify-content: center;
     "
   >
-    <div ng-app="login" ng-controller="loginCtrl">
+    <div
+      ng-app="login"
+      ng-controller="loginCtrl"
+      class="w-50 bg-white p-4 rounded shadow"
+    >
       <form class="container mt-5">
         <label for="email">Email:</label>
         <input
@@ -37,6 +41,9 @@
           class="form-control"
           placeholder="Enter Email"
         />
+        <p class="text-danger" ng-show="email && !email.includes('@')">
+          Please enter a valid email address.
+        </p>
         <br />
         <label for="password">Password:</label>
         <input
@@ -46,28 +53,39 @@
           class="form-control"
           placeholder="Enter Password"
         />
+        <p class="text-danger" ng-show="password && password.length < 6">
+          Password must be at least 6 characters long.
+        </p>
         <br />
         <button
-          ng-click="login()"
-          ng-disabled="!email || !password"
+          ng-disabled="!email || !password || !email.includes('@') || password.length < 6"
           class="btn btn-primary"
+          ng-click="login()"
         >
           Login
         </button>
       </form>
-      <div class="container mt-3">
-        <p>{{userData}}</p>
+      <div class="mt-3">
+        <p>{{ message }}</p>
       </div>
     </div>
     <script>
       var app = angular.module("login", []);
       app.controller("loginCtrl", function ($scope) {
         $scope.login = function () {
-          $scope.userData =
-            " Welcome,\n your email: " +
-            $scope.email +
-            ", Password: " +
-            $scope.password;
+          if (
+            $scope.email === "admin@gmail.com" &&
+            $scope.password === "123456"
+          ) {
+            $scope.message = "Welcome Admin!";
+          } else if (
+            $scope.email === "aly@gmail.com" &&
+            $scope.password === "445566"
+          ) {
+            $scope.message = "Welcome Aly!";
+          } else {
+            $scope.message = "Invalid email or password.";
+          }
         };
       });
     </script>
