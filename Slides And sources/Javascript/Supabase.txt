@@ -1,0 +1,33 @@
+https://supabase.com/
+
+Supabase automatically provides a RESTful API for every table in your database, powered by PostgREST. You can access it using standard HTTP requests (GET, POST, PUT, DELETE) or the specific Supabase client libraries, which are generally recommended. 
+Accessing the API
+To call a table as an API, you need your project's unique URL and an API key: 
+Find your Project URL: In your Supabase Dashboard, go to Settings > API. The URL will look like https://<project_ref>.supabase.co.
+Find your API Key: In the same Settings > API section, copy the anon (public) key for client-side operations or the service_role key for server-side operations (which bypasses Row Level Security). 
+Using the API with HTTP Requests (REST) 
+You can make direct HTTP calls to the API endpoints: 
+Endpoint structure: https://<project_ref>.supabase.co/rest/v1/<table_name>.
+Headers required:
+apikey: Your anon or service_role key.
+Authorization: Bearer <Your API Key> (same value as the apikey header). 
+Examples using the REST API:
+Retrieve all rows (GET):
+http
+GET https://<project_ref>.supabase.co/rest/v1/your_table_name
+apikey: YOUR_API_KEY
+Authorization: Bearer YOUR_API_KEY
+Insert a new row (POST):
+http
+POST https://<project_ref>.supabase.co/rest/v1/your_table_name
+apikey: YOUR_API_KEY
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "column_name": "value",
+  "another_column": "another_value"
+}
+
+apikey: YOUR_SERVICE_ROLE_KEY
+Authorization: Bearer YOUR_SERVICE_ROLE_KEY

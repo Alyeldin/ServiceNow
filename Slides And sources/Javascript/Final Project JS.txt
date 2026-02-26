@@ -1,0 +1,68 @@
+Final Project: JS E-Commerce Website
+Project Description
+
+You are required to build a complete E-Commerce Website using:
+
+HTML
+
+CSS or Bootstrap
+
+JavaScript (No frameworks)
+
+The website must simulate a real online shop where users can:
+
+View products
+
+Search and filter products
+
+View product details
+
+Add/remove products to cart
+
+Register & Login
+
+Complete checkout process
+
+Products must be fetched from a public API (using Fetch API).
+
+-Required Pages (Minimum 10)
+
+-Technical Rules must Use:
+
+Fetch API
+
+Promises or async/await
+
+DOM Manipulation
+
+LocalStorage
+
+At least 5 functions
+
+At least 3 array methods (filter, map, reduce, etc.)
+
+Event Listeners
+
+Form Validation using JavaScript
+
+-Design Rules
+
+Website must be responsive
+
+Use Bootstrap OR custom CSS
+
+Clean UI
+
+-Submission Rules
+
+Students must submit:
+
+Project folder
+
+Organized files (css / js folders)
+
+Clean code
+
+No console errors
+
+with documentation

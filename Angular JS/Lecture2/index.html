@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Login</title>
+  </head>
+  <body>
+    <div ng-app="login" ng-controller="loginCtrl">
+      <form class="container mt-5">
+        <label for="email">Email:</label>
+        <input type="text" id="email" ng-model="email" class="form-control" />
+        <br />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          ng-model="password"
+          class="form-control"
+        />
+        <br />
+        <button ng-click="login()" class="btn btn-primary">Login</button>
+      </form>
+      <div class="container mt-3">
+        <p>{{userData}}</p>
+      </div>
+    </div>
+    <script>
+      var app = angular.module("login", []);
+      app.controller("loginCtrl", function ($scope) {
+        $scope.login = function () {
+          $scope.userData =
+            " Welcome,\n your email: " +
+            $scope.email +
+            ", Password: " +
+            $scope.password;
+        };
+      });
+    </script>
+  </body>
+</html>
