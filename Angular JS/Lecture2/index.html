@@ -18,11 +18,25 @@
 
     <title>Login</title>
   </head>
-  <body>
+  <body
+    class="bg-light"
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
     <div ng-app="login" ng-controller="loginCtrl">
       <form class="container mt-5">
         <label for="email">Email:</label>
-        <input type="text" id="email" ng-model="email" class="form-control" />
+        <input
+          type="text"
+          id="email"
+          ng-model="email"
+          class="form-control"
+          placeholder="Enter Email"
+        />
         <br />
         <label for="password">Password:</label>
         <input
@@ -30,6 +44,7 @@
           id="password"
           ng-model="password"
           class="form-control"
+          placeholder="Enter Password"
         />
         <br />
         <button ng-click="login()" class="btn btn-primary">Login</button>
