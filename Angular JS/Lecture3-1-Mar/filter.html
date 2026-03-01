@@ -19,24 +19,79 @@
     <title>Filters and injections</title>
   </head>
   <body
-    class="bg-light"
-    style="
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    "
+    class="bg-light mt-5"
+    style="display: flex; align-items: center; justify-content: center"
   >
-    <div ng-app="filter" class="w-50 bg-white p-4 rounded shadow">
-      <p>{{"aly khairy" | cap }}</p>
+    <div
+      ng-app="filter"
+      ng-controller="stuCtrl"
+      class="bg-white row p-4 rounded shadow"
+    >
+      <counter count="count"></counter>
+      <!-- <p>{{"aly khairy" | cap }}</p> -->
+
+      <!-- <div ng-repeat="name in stunames ">
+        <my-message title="{{name}}"></my-message>
+      </div> -->
     </div>
 
     <script>
       var app = angular.module("filter", []);
 
+      app.controller("stuCtrl", function ($scope) {
+        $scope.stunames = ["Aly", "mhmd", "Hady"];
+        $scope.count = 0;
+      });
       app.filter("cap", function () {
         return function (input) {
           return input.charAt(0).toUpperCase() + input.slice(1);
+        };
+      });
+      app.directive("myMessage", function () {
+        return {
+          scope: { title: "@" },
+          template: `<div class="card col-4 mb-3 " style="width: 18rem;">
+        <img src="https://images.pexels.com/photos/12909944/pexels-photo-12909944.jpeg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+        </div>
+        </div>`,
+        };
+      });
+      app.directive("counter", function () {
+        return {
+          scope: { count: "=" },
+          template: ` <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="button"
+            aria-pressed="false"
+            autocomplete="off"
+            ng-click="Increment()"
+
+          >
+            increase
+          </button>
+          <p class="text-center mt-3">counter: {{count}}</p>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="button"
+            aria-pressed="false"
+            autocomplete="off"
+            ng-click= "Decrement()"
+          >
+            decrease
+          </button>
+          `,
+          link: function (scope) {
+            scope.Increment = function () {
+              scope.count++;
+            };
+            scope.Decrement = function () {
+              scope.count--;
+            };
+          },
         };
       });
     </script>
