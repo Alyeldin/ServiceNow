@@ -22,7 +22,7 @@
             <label class="form-label mb-1 p-2">
               <span class="fs-5">Student Name </span
               ><span class="fst-italic fs-6 text-secondary"
-                >(no less than 3 charecters):
+                >(no less than 3 characters):
               </span>
             </label>
             <input
@@ -43,12 +43,16 @@
             Add Student
           </button>
           <!-- <div
-            ng-show="(submitform.name.$touched )|| stuName.length < 3"
+            ng-show="$scope.stunames.includes($scope.stuName)"
             class="text-danger mt-3"
           >
-            Name is required and sould be grater no less than 3 charecters.
+            Same Name already Exists
           </div> -->
         </form>
+      </div>
+
+      <div class="text-center mt-4 text-muted" ng-if="stunames.length === 0">
+        No students added yet.
       </div>
       <table class="table mt-4" ng-if="stunames.length > 0">
         <thead>
@@ -58,7 +62,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="name in stunames">
+          <tr ng-repeat="name in stunames track by $index">
             <td>{{ name }}</td>
             <td>
               <button class="btn btn-danger btn-sm" ng-click="delete($index)">
@@ -74,14 +78,14 @@
       app.controller("stuCtrl", function ($scope) {
         $scope.stunames = [];
         $scope.stuAdd = function () {
-          if (!$scope.stunames.includes($scope.stuName)) {
-            $scope.stunames.push($scope.stuName);
-            $scope.stuName = "";
-            $scope.submitform.name.$touched = false;
-            $scope.submitform.name.$pristine = true;
-          } else {
-            alert("This Name exist in the list ");
-          }
+          // if (!$scope.stunames.includes($scope.stuName)) {
+          $scope.stunames.push($scope.stuName);
+          $scope.stuName = "";
+          $scope.submitform.name.$touched = false;
+          $scope.submitform.name.$pristine = true;
+          // // } else {
+          //   alert("This Name exist in the list ");
+          // }
         };
         $scope.delete = function ($index) {
           $scope.stunames.splice($index, 1);
