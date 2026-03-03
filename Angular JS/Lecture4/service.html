@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Product Management - Classic Bootstrap</title>
+    <title>Product Management - SweetAlert Style</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -11,12 +11,13 @@
       rel="stylesheet"
     />
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
       .loader-container {
         padding: 50px;
         text-align: center;
       }
-      /* Ensures the table doesn't look too cramped */
       .table td {
         vertical-align: middle;
       }
@@ -25,17 +26,10 @@
 
   <body ng-app="myApp" ng-controller="myCtrl">
     <div class="container mt-4">
-      <h2 class="mb-4">Product Management System</h2>
+      <h2 class="mb-4 text-center">Product Management System</h2>
 
-      <div class="alert alert-success" ng-if="successMessage">
-        {{ successMessage }}
-      </div>
-      <div class="alert alert-danger" ng-if="errorMessage">
-        {{ errorMessage }}
-      </div>
-
-      <div class="card mb-4">
-        <div class="card-header fw-bold">Add New Product</div>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header fw-bold bg-white">Add New Product</div>
         <div class="card-body">
           <form ng-submit="addProduct()">
             <div class="row g-2">
@@ -74,23 +68,22 @@
 
       <div class="loader-container" ng-if="isLoading">
         <div class="spinner-border text-primary" role="status"></div>
-        <p class="mt-2">Fetching data...</p>
+        <p class="mt-2 text-muted">Fetching data...</p>
       </div>
 
-      <div ng-if="!isLoading">
-        <table class="table table-bordered table-striped">
+      <div ng-if="!isLoading" class="table-responsive shadow-sm rounded">
+        <table class="table table-bordered table-striped mb-0">
           <thead class="table-dark">
             <tr>
               <th>ID</th>
               <th>Product Name</th>
               <th>Price</th>
-              <th style="width: 150px">Actions</th>
+              <th style="width: 160px">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="product in products">
               <td>{{ product.id }}</td>
-
               <td>
                 <span ng-if="!product.isEditing">{{ product.title }}</span>
                 <input
@@ -100,7 +93,6 @@
                   ng-model="product.title"
                 />
               </td>
-
               <td>
                 <span ng-if="!product.isEditing"
                   >{{ product.price | currency }}</span
@@ -113,11 +105,10 @@
                   ng-model="product.price"
                 />
               </td>
-
               <td>
                 <div ng-if="!product.isEditing" class="d-flex gap-1">
                   <button
-                    class="btn btn-sm btn-secondary"
+                    class="btn btn-sm btn-outline-secondary"
                     ng-click="editProduct(product)"
                   >
                     Edit
@@ -129,7 +120,6 @@
                     Delete
                   </button>
                 </div>
-
                 <div ng-if="product.isEditing" class="d-flex gap-1">
                   <button
                     class="btn btn-sm btn-success"
@@ -138,7 +128,7 @@
                     Save
                   </button>
                   <button
-                    class="btn btn-sm btn-secondary"
+                    class="btn btn-sm btn-light border"
                     ng-click="cancelEdit(product)"
                   >
                     Cancel
@@ -172,12 +162,12 @@
       });
 
       // CONTROLLER: Handles UI Logic
-      app.controller("myCtrl", function ($scope, $timeout, ProductService) {
+      app.controller("myCtrl", function ($scope, ProductService) {
         $scope.products = [];
         $scope.newProduct = {};
         $scope.isLoading = true;
 
-        // Fetch all products (GET)
+        // Fetch Data
         $scope.load = function () {
           $scope.isLoading = true;
           ProductService.getProducts()
@@ -189,54 +179,65 @@
             });
         };
 
-        // Add new product (POST)
+        // Add Product
         $scope.addProduct = function () {
           $scope.isPosting = true;
           ProductService.saveProduct($scope.newProduct)
             .then(function (res) {
               $scope.products.unshift(res.data);
               $scope.newProduct = {};
-              $scope.showMessage("success", "Item added successfully!");
+              Swal.fire({
+                icon: "success",
+                title: "Added!",
+                text: "Product added successfully",
+                timer: 2000,
+                showConfirmButton: false,
+              });
             })
             .finally(function () {
               $scope.isPosting = false;
             });
         };
 
-        // Update existing product (PUT)
+        // Update Product
         $scope.saveUpdate = function (product) {
           ProductService.updateProduct(product.id, product).then(function () {
             product.isEditing = false;
-            $scope.showMessage("success", "Item updated!");
+            Swal.fire({
+              icon: "success",
+              title: "Updated!",
+              text: "Product info saved",
+              timer: 1500,
+              showConfirmButton: false,
+            });
           });
         };
 
-        // Delete product (DELETE)
+        // Delete Product (With SweetAlert Confirmation)
         $scope.removeProduct = function (id, index) {
-          if (confirm("Are you sure you want to delete this?")) {
-            ProductService.deleteProduct(id).then(function () {
-              $scope.products.splice(index, 1);
-              $scope.showMessage("success", "Item removed.");
-            });
-          }
+          Swal.fire({
+            title: "Are you sure?",
+            text: "This product will be removed permanently!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6e7881",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              ProductService.deleteProduct(id).then(function () {
+                $scope.products.splice(index, 1);
+                Swal.fire("Deleted!", "Product has been removed.", "success");
+              });
+            }
+          });
         };
 
-        // UI toggles
         $scope.editProduct = function (p) {
           p.isEditing = true;
         };
         $scope.cancelEdit = function (p) {
           p.isEditing = false;
-        };
-
-        // Logic for auto-hiding alerts
-        $scope.showMessage = function (type, msg) {
-          if (type === "success") $scope.successMessage = msg;
-          else $scope.errorMessage = msg;
-          $timeout(function () {
-            $scope.successMessage = null;
-            $scope.errorMessage = null;
-          }, 3000);
         };
 
         $scope.load();
