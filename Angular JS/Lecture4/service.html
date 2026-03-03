@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product Management - Classic Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .loader-container {
+        padding: 50px;
+        text-align: center;
+      }
+      /* Ensures the table doesn't look too cramped */
+      .table td {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+
+  <body ng-app="myApp" ng-controller="myCtrl">
+    <div class="container mt-4">
+      <h2 class="mb-4">Product Management System</h2>
+
+      <div class="alert alert-success" ng-if="successMessage">
+        {{ successMessage }}
+      </div>
+      <div class="alert alert-danger" ng-if="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header fw-bold">Add New Product</div>
+        <div class="card-body">
+          <form ng-submit="addProduct()">
+            <div class="row g-2">
+              <div class="col-md-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  ng-model="newProduct.title"
+                  placeholder="Product Title"
+                  required
+                />
+              </div>
+              <div class="col-md-5">
+                <input
+                  type="number"
+                  step="0.01"
+                  class="form-control"
+                  ng-model="newProduct.price"
+                  placeholder="Price"
+                  required
+                />
+              </div>
+              <div class="col-md-2">
+                <button
+                  type="submit"
+                  class="btn btn-primary w-100"
+                  ng-disabled="isPosting"
+                >
+                  {{ isPosting ? 'Saving...' : 'Add' }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="loader-container" ng-if="isLoading">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Fetching data...</p>
+      </div>
+
+      <div ng-if="!isLoading">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th style="width: 150px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="product in products">
+              <td>{{ product.id }}</td>
+
+              <td>
+                <span ng-if="!product.isEditing">{{ product.title }}</span>
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  ng-if="product.isEditing"
+                  ng-model="product.title"
+                />
+              </td>
+
+              <td>
+                <span ng-if="!product.isEditing"
+                  >{{ product.price | currency }}</span
+                >
+                <input
+                  type="number"
+                  step="0.01"
+                  class="form-control form-control-sm"
+                  ng-if="product.isEditing"
+                  ng-model="product.price"
+                />
+              </td>
+
+              <td>
+                <div ng-if="!product.isEditing" class="d-flex gap-1">
+                  <button
+                    class="btn btn-sm btn-secondary"
+                    ng-click="editProduct(product)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="btn btn-sm btn-danger"
+                    ng-click="removeProduct(product.id, $index)"
+                  >
+                    Delete
+                  </button>
+                </div>
+
+                <div ng-if="product.isEditing" class="d-flex gap-1">
+                  <button
+                    class="btn btn-sm btn-success"
+                    ng-click="saveUpdate(product)"
+                  >
+                    Save
+                  </button>
+                  <button
+                    class="btn btn-sm btn-secondary"
+                    ng-click="cancelEdit(product)"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      var app = angular.module("myApp", []);
+
+      // SERVICE: Handles all HTTP communication
+      app.service("ProductService", function ($http) {
+        var apiLink = "https://fakestoreapi.com/products";
+        this.getProducts = function () {
+          return $http.get(apiLink);
+        };
+        this.saveProduct = function (p) {
+          return $http.post(apiLink, p);
+        };
+        this.updateProduct = function (id, p) {
+          return $http.put(apiLink + "/" + id, p);
+        };
+        this.deleteProduct = function (id) {
+          return $http.delete(apiLink + "/" + id);
+        };
+      });
+
+      // CONTROLLER: Handles UI Logic
+      app.controller("myCtrl", function ($scope, $timeout, ProductService) {
+        $scope.products = [];
+        $scope.newProduct = {};
+        $scope.isLoading = true;
+
+        // Fetch all products (GET)
+        $scope.load = function () {
+          $scope.isLoading = true;
+          ProductService.getProducts()
+            .then(function (res) {
+              $scope.products = res.data;
+            })
+            .finally(function () {
+              $scope.isLoading = false;
+            });
+        };
+
+        // Add new product (POST)
+        $scope.addProduct = function () {
+          $scope.isPosting = true;
+          ProductService.saveProduct($scope.newProduct)
+            .then(function (res) {
+              $scope.products.unshift(res.data);
+              $scope.newProduct = {};
+              $scope.showMessage("success", "Item added successfully!");
+            })
+            .finally(function () {
+              $scope.isPosting = false;
+            });
+        };
+
+        // Update existing product (PUT)
+        $scope.saveUpdate = function (product) {
+          ProductService.updateProduct(product.id, product).then(function () {
+            product.isEditing = false;
+            $scope.showMessage("success", "Item updated!");
+          });
+        };
+
+        // Delete product (DELETE)
+        $scope.removeProduct = function (id, index) {
+          if (confirm("Are you sure you want to delete this?")) {
+            ProductService.deleteProduct(id).then(function () {
+              $scope.products.splice(index, 1);
+              $scope.showMessage("success", "Item removed.");
+            });
+          }
+        };
+
+        // UI toggles
+        $scope.editProduct = function (p) {
+          p.isEditing = true;
+        };
+        $scope.cancelEdit = function (p) {
+          p.isEditing = false;
+        };
+
+        // Logic for auto-hiding alerts
+        $scope.showMessage = function (type, msg) {
+          if (type === "success") $scope.successMessage = msg;
+          else $scope.errorMessage = msg;
+          $timeout(function () {
+            $scope.successMessage = null;
+            $scope.errorMessage = null;
+          }, 3000);
+        };
+
+        $scope.load();
+      });
+    </script>
+  </body>
+</html>
