@@ -1,1 +1,120 @@
 <h1>Products</h1>
+
+<body>
+  <div class="container mt-4">
+    <h2 class="mb-4 text-center">Product Management System</h2>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header fw-bold bg-white">Add New Product</div>
+      <div class="card-body">
+        <form ng-submit="addProduct()">
+          <div class="row g-2">
+            <div class="col-md-5">
+              <input
+                type="text"
+                class="form-control"
+                ng-model="newProduct.title"
+                placeholder="Product Title"
+                required
+              />
+            </div>
+            <div class="col-md-5">
+              <input
+                type="number"
+                step="0.01"
+                class="form-control"
+                ng-model="newProduct.price"
+                placeholder="Price"
+                required
+              />
+            </div>
+            <div class="col-md-2">
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                ng-disabled="isPosting"
+              >
+                {{ isPosting ? 'Saving...' : 'Add' }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="loader-container" ng-if="isLoading">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2 text-muted">Fetching data...</p>
+    </div>
+
+    <div ng-if="!isLoading" class="table-responsive shadow-sm rounded">
+      <table class="table table-bordered table-striped mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th style="width: 160px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="product in products">
+            <td>{{ product.id }}</td>
+            <td>
+              <span ng-if="!product.isEditing">{{ product.title }}</span>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                ng-if="product.isEditing"
+                ng-model="product.title"
+              />
+            </td>
+            <td>
+              <span ng-if="!product.isEditing"
+                >{{ product.price | currency }}</span
+              >
+              <input
+                type="number"
+                step="0.01"
+                class="form-control form-control-sm"
+                ng-if="product.isEditing"
+                ng-model="product.price"
+              />
+            </td>
+            <td>
+              <div ng-if="!product.isEditing" class="d-flex gap-1">
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  ng-click="editProduct(product)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="btn btn-sm btn-danger"
+                  ng-click="removeProduct(product.id, $index)"
+                >
+                  Delete
+                </button>
+                <td><a href="#!/prDetails/{{product.id}}">View Details</a></td>
+              </div>
+              <div ng-if="product.isEditing" class="d-flex gap-1">
+                <button
+                  class="btn btn-sm btn-success"
+                  ng-click="saveUpdate(product)"
+                >
+                  Save
+                </button>
+                <button
+                  class="btn btn-sm btn-light border"
+                  ng-click="cancelEdit(product)"
+                >
+                  Cancel
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
