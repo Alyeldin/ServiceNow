@@ -1,0 +1,11 @@
+task – Library Books database:
+
+Create a new database
+Create table books and categories using:
+SERIAL primary key
+VARCHAR, TEXT, NUMERIC, INTEGER, DATE, BOOLEAN, TIMESTAMPTZ
+and one JSONB column
+
+Constraints: PRIMARY KEY, FOREIGN KEY, NOT NULL, UNIQUE, CHECK, DEFAULT
+
+ALTER TABLE: add 1–2 new columns
