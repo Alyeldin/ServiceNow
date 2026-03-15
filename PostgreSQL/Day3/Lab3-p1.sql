@@ -111,6 +111,7 @@ SELECT * from Doctors where  salary BETWEEN 10000 AND 20000;
 
 -- QUESTION 5
 SELECT * from Doctors where specialization='Cardiology' OR specialization='Dermatology';
+
 -- another way of the lecture
 SELECT * FROM Doctors WHERE specialization IN ('Cardiology','Dermatology');
 
