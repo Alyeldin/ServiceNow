@@ -1,0 +1,38 @@
+E-commerce system
+
+Step1 (Setting up tables that will be used in creating the database):
+
+=>users 
+    role(employee admin)
+=>customers
+=>products
+=>products_images
+=>cart
+=>orders
+=>order_items
+=>payment_method
+=>categories
+=>setting
+
+
+Step2 (Definning the attributes of this tables,  first schema that will be edited after doing the realtions between tables):
+
+=>users:            (id(PK),  name,  email,  role,  password,  active)
+=>customers:        (id(PK), user_name, email, password, phone_number, address)
+=>products:         (id(PK), name, category_id(FK), price, description, qty)
+=>products_images:  (id(PK), product_id(FK), url)
+=>cart:             (id(PK), product_id(FK), customer_id(FK), qty)
+=>orders:           (id(PK), order_num, customer_id(FK), total, payment_method_id(FK), shipping_address, status)
+=>order_items:      (id(PK), order_id(FK), product_id(FK), qty, price)
+=>payment_method:   (id(PK), name, active)
+=>categories:       (id(PK), name)
+=>setting:          (id(PK), description, user_id(FK))
+
+Step3 (Adding relations between tables):
+
+rel1 :  customers -> products          (m-n) birdge table cart (set product in cart)
+rel2 :  products -> products_images    (1-m)
+rel3 :  products -> categories         (1-m)
+rel4 :  products -> orders             (m-m) birdge table order_items
+rel5 :  customers -> orders            (1-m)
+rel6 :  payment_method -> orders       (1-1)
