@@ -1,0 +1,11 @@
+Service now developer platform
+https://developer.servicenow.com/dev.do
+
+Browser plugin
+https://chromewebstore.google.com/detail/sn-utils-tools-for-servic/jgaodbdddndbaijmcljdbglhpdhnjobg
+
+Docs
+https://www.servicenow.com/docs/
+
+community
+https://www.servicenow.com/community/
