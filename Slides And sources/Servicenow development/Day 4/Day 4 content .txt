@@ -1,8 +1,0 @@
-Day 4 lecture slides where from the following:
-
-servicenow-zurich-platform-administration-enus.pdf · 3,178 pages
-
-UI Policy Page -- > 981
-Policy Data Page -- > 1042
-Notifications Page --- > 2560
-Email Notification Page --- > 2465

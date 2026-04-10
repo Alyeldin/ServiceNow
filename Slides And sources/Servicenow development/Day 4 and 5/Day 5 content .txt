@@ -1,0 +1,6 @@
+Day 5 lecture slides where from the following:
+
+servicenow-zurich-platform-administration-enus.pdf · 3,178 pages
+
+platform security ----> 261
+ACL -----> 1689
