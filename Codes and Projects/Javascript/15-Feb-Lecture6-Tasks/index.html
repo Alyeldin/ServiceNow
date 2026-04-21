@@ -1,97 +1,190 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- <div id="begin">Begin</div>
-    <ul>
-      <li>first li</li>
-      <li>second li</li>
-      <li>third li</li>
-    </ul>
-    <div id="end">End</div>
-    <p>A Pargraph</p>
-    <div>A Div</div>
 
-    <div id="elem1"></div>
-    <div id="elem2"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merged Lab Notes</title>
+</head>
 
-    <h2>Todo List</h2>
+<body>
+  <div id="begin">Begin</div>
+  <ul>
+    <li>first li</li>
+    <li>second li</li>
+    <li>third li</li>
+  </ul>
+  <div id="end">End</div>
+  <p>A Pargraph</p>
+  <div>A Div</div>
 
-    <input id="todoInput" type="text" placeholder="Write a task..." />
-    <button id="addBtn">Add</button>
+  <div id="elem1"></div>
+  <div id="elem2"></div>
 
-    <ul id="todoList"></ul>
+  <h2>Todo List</h2>
 
-    <span id="totalCount"></span> -->
-  </body>
-  <script>
-    //LECTURE 6 15 FEB
+  <input id="todoInput" type="text" placeholder="Write a task..." />
+  <button id="addBtn">Add</button>
 
-    //Task 1-----------------------------------------------------
+  <ul id="todoList"></ul>
 
-    // let todoInput = document.getElementById("todoInput");
-    // let addBtn = document.getElementById("addBtn");
-    // let totalCount = document.getElementById("totalCount");
+  <span id="totalCount"></span>
+</body>
+<script>
+  // LECTURE 6 15 FEB
 
-    // addBtn.addEventListener("click", function () {
-    //   let task = todoInput.value;
-    //   if (task !== "") {
-    //     let li = document.createElement("li");
-    //     li.innerHTML =
-    //       task + " <button onclick='deleteTask(this)'>Delete</button>";
-    //     document.getElementById("todoList").appendChild(li);
-    //     todoInput.value = "";
-    //     updateCount();
-    //   } else {
-    //     alert("Please enter a task");
-    //   }
-    // });
-    // function deleteTask(button) {
-    //   let li = button.parentNode;
-    //   document.getElementById("todoList").removeChild(li);
-    //   console.log("task deleted");
-    //   updateCount();
-    // }
-    // function updateCount() {
-    //   let elem = document.querySelectorAll("ul > li").length;
-    //   totalCount.textContent = "Total Tasks: " + elem;
-    // }
-    // updateCount();
+  // DOM Selection & Iteration Examples ---------------------------------------
+  // for (let i = 0; i < document.body.childNodes.length; i++) {
+  //   console.log(document.body.childNodes[i]);
+  // }
 
-    // Task 2 --------------------------------------------------
-    // let pass = prompt("enter your password");
+  // document.getElementById("begin").style.color = "red";
+  // document.getElementById("end").style.color = "blue";
 
-    // function checkPassword() {
-    //   try {
-    //     if (pass.length < 8) {
-    //       alert("Password must be at least 8 characters long");
-    //     }
-    //   } catch (error) {
-    //     alert(error.message);
-    //   }
-    // }
-    // checkPassword();
+  // let elem = document.querySelectorAll("ul > li:last-child");
+  // for (element of elem) {
+  //   console.log(element.innerHTML);
+  // }
 
-    // Task 3 --------------------------------------------------
+  // alert(document.body.innerHTML);
+  // console.log(document.body.innerHTML);
+  // alert(begin.textContent);
 
-    // function createSecretMessage(initialMessage) {
-    //   return {
-    //     updateMessage: function (newMessage) {
-    //       alert("message updated!" + newMessage);
-    //     },
+  // let name = prompt("Enter your name:", "<b>winnie the Pooh</b>");
+  // elem1.innerHTML = name;
+  // elem2.textContent = name;
 
-    //     readMessage: function () {
-    //       alert("message is: " + initialMessage);
-    //     },
-    //   };
-    // }
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   console.log("hello dom");
+  // });
 
-    // const message = createSecretMessage("Hello World");
-    // message.readMessage();
-    // message.updateMessage("New Secret");
-  </script>
+
+  // Task 1 (Todo List Logic) -----------------------------------------------------
+  // let todoInput = document.getElementById("todoInput");
+  // let addBtn = document.getElementById("addBtn");
+  // let totalCount = document.getElementById("totalCount");
+
+  // addBtn.addEventListener("click", function () {
+  //   let task = todoInput.value;
+  //   if (task !== "") {
+  //     let li = document.createElement("li");
+  //     li.innerHTML =
+  //       task + " <button onclick='deleteTask(this)'>Delete</button>";
+  //     document.getElementById("todoList").appendChild(li);
+  //     todoInput.value = "";
+  //     updateCount();
+  //   } else {
+  //     alert("Please enter a task");
+  //   }
+  // });
+  // function deleteTask(button) {
+  //   let li = button.parentNode;
+  //   document.getElementById("todoList").removeChild(li);
+  //   console.log("task deleted");
+  //   updateCount();
+  // }
+  // function updateCount() {
+  //   let elem = document.querySelectorAll("ul > li").length;
+  //   totalCount.textContent = "Total Tasks: " + elem;
+  // }
+  // updateCount();
+
+
+  // Task 2 (Error Handling / Try-Catch) --------------------------------------------------
+  // try {
+  //   alert("This is a test");
+  //   lalala;
+  //   alert("This will not be displayed");
+  // } catch (error) {
+  //   alert(error.message);
+  // } finally {
+  //   alert("Finally block executed");
+  // }
+
+  // function divide(a, b) {
+  //   try {
+  //     if (b === 0) throw new Error("Division by zero is not allowed");
+  //     alert(a / b);
+  //   } catch (error) {
+  //     alert(error.message);
+  //   } finally {
+  //     alert("Finally block executed");
+  //   }
+  // }
+  // divide(10, 2);
+  // divide(10, 0);
+
+  // let pass = prompt("enter your password");
+  // function checkPassword() {
+  //   try {
+  //     if (pass.length < 8) {
+  //       alert("Password must be at least 8 characters long");
+  //     }
+  //   } catch (error) {
+  //     alert(error.message);
+  //   }
+  // }
+  // checkPassword();
+
+
+  // Task 3 (Scope & Closures) --------------------------------------------------
+  // // Global Scope
+  // const globalVar = "I'm global";
+
+  // function examplescope() {
+  //   // Function (Local) Scope
+  //   var functionVar = "I'm local to the function";
+  //   console.log(globalVar);
+
+  //   if (true) {
+  //     // Block Scope (using let)
+  //     let blockVar = "I'm only in this block";
+  //     console.log(functionVar);
+  //   }
+  //   console.log(blockVar); // ERROR
+  // }
+
+  // function bankAccount() {
+  //   let balance = 500;
+  //   function withdraw(amount) {
+  //     balance -= amount;
+  //     console.log("New balance:", balance);
+  //   }
+  //   return withdraw;
+  // }
+  // const atm = bankAccount();
+  // atm(100);
+
+  // // Closure Loop Example
+  // function makeFunctions() {
+  //   let arr = [];
+  //   for (var i = 0; i < 3; i++) {
+  //     arr.push(function () {
+  //       console.log(i);
+  //     });
+  //   }
+  //   return arr;
+  // }
+
+  // // Secret Message (Merged variations)
+  // function createSecretMessage(initialMessage) {
+  //   let secret = initialMessage;
+  //   return {
+  //     updateMessage: function (newMessage) {
+  //       secret = newMessage; // Updates internal variable
+  //       alert("Secret message updated! " + newMessage);
+  //     },
+  //     readMessage: function () {
+  //       alert("Secret message is: " + secret);
+  //     },
+  //   };
+  // }
+
+  // const mySecret = createSecretMessage("Hello World");
+  // mySecret.readMessage();
+  // mySecret.updateMessage("New Secret");
+  // mySecret.readMessage();
+
+</script>
+
 </html>
