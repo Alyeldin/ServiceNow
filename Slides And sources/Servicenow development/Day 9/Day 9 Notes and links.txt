@@ -1,0 +1,5 @@
+Icon library: https://INSTANCE URL.service-now.com/styles/retina_icons/retina_icons.html
+
+
+ICONS
+https://developer.servicenow.com/dev.do#!/reference/api/tokyo/client/c_GlideFormAPI#r_GlideFormAddDecoration_String_String_String
