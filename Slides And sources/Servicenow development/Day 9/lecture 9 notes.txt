@@ -1,0 +1,6 @@
+study all g_form. functions
+
+											business rule VS server side
+when we need values from form or fields dependent on form submissions(Single record row) 			server side is dealing with table (Multiple records like columns)
+types (before, after, async, display), also kind of used in validation before data insertion									
+cannot stop submitting

@@ -1,0 +1,77 @@
+Keywords:
+
+-Waterfall vs scrum vs agile
+-automation
+-Digital transformation 
+-Delivery cycle 
+-Scrum or safe agile framework
+-opportunity definition 
+-persona
+-margin and margin risk  
+-scrum framework
+-MVP minimum viable product
+-definition of ready DOR
+-Definition of Done DOD
+-design authority
+-Parallel Vs dependent task or sprints
+
+----------------------------------
+Positions:
+
+-Digital transformation consultant
+-BA business analyst 	(Khaled BA)
+-Solution architect  (Dream Killer)
+-Pre-sale architect
+-Resource manager
+-Steering board (is the list of managers is controlling the project)
+-Product Manager
+-PO Product owner
+
+----------------------------------
+logics / rules:
+
+-solution vs value
+-SDLC software development life cycle
+-Delivery cycle: Presales --> discovery--> Design-->Staffing-->Build (Agile)--> Testing--> Go live
+-negotiation is a key challenge
+-utilization important point from both sides 
+-presales architect choose persons as per cost, resource manager choose person as per skill set
+-agile is most important ----> study it from UNI notes, agile work in iterations, agile works with sprint
+-product manager is responsible for backlog
+-Definition of Done (DOD) rules: 
+	Code is written, Unit tested, QA and acceptance criteria, Documentation (Update set), Acceptance by PO.
+-BA is product owner most of the time-----> user story mapping is done by BA 
+-Acceptance criteria is made by BA and need to be done to develop in the correct scope
+
+
+----------------------------------
+General Notes:
+
+-ServiceNow modules has plans like premium, standard, extreme as normal online plans have additional features (License)
+-The Rate of a customer(employee company have) is 500 USD (story)
+-Tender (مناقصة) ---- (remember ostaza hend)----Price offer (عرض سعر) ----- 5:
+	After Auction or bidding, company choose the best offer supported for them giving the bare minimum requirements
+-after deal closure presale already chose people
+-resource manager is the one responsible for staffing of actual people to project
+-breaking down scrums is important base on a user story, scrum should have only one single user story to be able to be done (Epic , Story, feature, enabler)
+-product burndown is a number or graph used by scrum master and PO to estimate the progress of scrums like if there a progress or not: have velocity like time and tasks done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

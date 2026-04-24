@@ -1,0 +1,28 @@
+service portal 
+scope of the applications matter in portals and where will be viewed
+
+ok so portals is like web pages and web applications
+we create application as portals  like home page or system having some configs like static header and footer and then add pages in it to be able to use them through links 
+
+so 
+finally portals and pages and service now portals is same as website html and css (portal have pages, web application have pages and sites)
+
+
+ok so now lets make it clearer
+we have service portal is one of the major container that contain all:
+
+Have Portals		--> portal is build upon certain scope and then shared with users via link to access it (Have a table) 
+Have Pages		--> Pages is a table in service now that saves all the portal pages that is related to a certain scope (Have a designer to drag and drop and design you page)
+Have Widgets		--> Widgets is a table that contain all kind of containers and widgets used among pages 
+Have Announcements	--> Announcements is like the announcement bar it will be shown whenever the portal is opened and can be dismissed
+Have catalog builder	--> Include all catalogs among the PDI 
+
+all of these maintain a single page application concept that allow you to use same widgets with multiple pages and portals 
+
+widget example is (data table from instance ) is a predefined one that allow you to show data from table
+
+Catalog ??
+
+ok two differences between announcement and widget announcement :
+-normal announcement is shown upon page or portal and can be dismissed , shown to all portal users as the main announcement for the portal
+-but widget announcement shown up on the widget that will be placed or created and cannot be dismissed , it will be kept shown in the widget with the right data below  

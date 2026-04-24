@@ -1,0 +1,51 @@
+lecture 19 Apr:
+
+with scripting you extend design and performance beyond standard configuration --> give more customization
+using API is the major allow any part to be more customized
+Web services is like rest api, etc
+java classes is like string , java.math
+
+
+Scripting
+Use scripts to extend your instance beyond standard configurations. With scripts, you may
+automate processes, add functionality, integrate your instance with an outside application and
+more.
+
+APIs (Application Programming Interfaces) provide classes and methods that you can use in
+scripts to define functionality. ServiceNow provides APIs as JavaScript classes, web services,
+and other points of connection for integrations. Note that you cannot access commonly used
+JavaScript objects (such as DOM or Window). Jelly scripts are also used in some modules. Jelly
+is used to turn XML into HTML and may include both client-side and server-side scripts.
+
+Scripts may be server-side (run on the server or database), client-side (run in the user's browser),
+or run on the MID server.
+
+keywords:
+mid-server like firewall
+when writing scripts we cannot use reserved words
+
+
+
+		two types of scripting
+server side script 		Client side script
+back-end			Front-end
+
+when making something like a condition or something we need to stick to UI policies and Data policies unless its more complex then we can use scripting 
+-like for example if cat is hardware then assigned group is hardware
+
+first client-script run and server-side is the next 
+
+UI policy and client side (UI policy is having higher priority that will override the client side)
+
+on load 	on change 	on submit 	on cell edit
+
+g_form is API that have a lot of methods to use in service-now forms
+
+
+choice type can have some modifications based on another choice
+
+links used:
+https://www.w3schools.com/js/js_reserved.asp
+
+
+

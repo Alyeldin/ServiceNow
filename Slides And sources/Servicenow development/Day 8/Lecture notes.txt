@@ -1,8 +1,0 @@
-https://www.w3schools.com/js/js_reserved.asp
-
-4 type 
-Onload
-onSubmit
-OnChange
-OncallEdit
-
