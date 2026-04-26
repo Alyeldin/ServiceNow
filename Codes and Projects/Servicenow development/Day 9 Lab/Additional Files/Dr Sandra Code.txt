@@ -1,0 +1,27 @@
+var tables = [
+    {name: 'sys_script', field: 'script'},              // Business Rules
+    {name: 'sys_script_client', field: 'script'},       // Client Scripts
+    {name: 'sys_ui_policy', field: 'conditions'},       // UI Policies
+    {name: 'sys_ui_policy_action', field: 'field'}      // UI Policy Actions
+];
+
+tables.forEach(function(t) {
+    var gr = new GlideRecord(t.name);
+
+    if (t.name == 'sys_ui_policy_action') {
+        gr.addQuery('field', 'short_description');
+    } else {
+        gr.addQuery(t.field, 'CONTAINS', 'short_description');
+    }
+
+    gr.query();
+
+    while (gr.next()) {
+		var tableName = gr.getValue('collection') || gr.getValue('table') || 'N/A';
+        gs.print(t.name + " → " + gr.getDisplayValue('name')+' '+tableName);
+    }
+});
+
+
+
+Code related  to background scripts
