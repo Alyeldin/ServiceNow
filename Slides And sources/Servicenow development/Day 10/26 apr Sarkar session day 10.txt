@@ -1,0 +1,75 @@
+26 apr Sarkar session day 10
+
+script include
+
+Data submission (controlled from client script) VS data insertion (controlled from business rule) 
+
+calling a script include in client script---->  var ga= new GlideAjax
+script include use create or use API
+
+script includes is available in servicenow
+
+to make sure client script reads the script includes is to make sure when typing link and it turns to link 
+
+ok so script include is like API that we previously used in angular which was includes functions like a controller
+
+code:
+var ga = new GlideAjax( 'IncidentCallerAjax');
+ga. addParam('sysparm_name', 'getcallerDetails');
+ga.addParam('sysparm_user_id', newValue);
+
+
+glideaggregate  used for mathematical operations(count, sum, average, max, min)
+glideajax
+glideSysAttatchemnt
+gliderecord 
+g_form
+g_list
+I
+
+);
+
+ga.getXMLAnswer (function(answer) {
+var data = JSON.parse(answer);
+g_form. addInfoMessage(
+'Caller Email: ' + data.email +
+Department: ' + data. department +
+' |VIP: ' + data.vip +
+|Active Incidents: ' + data. active_incidents
+
+if (data.vip == 'true') {
+g_form.setValue('priority', '1');
+g_form. showFieldMsg('caller_id', 'VIP caller detected. Priority set to Critical.', 'warning ');
+}
+if (parseInt(data.active_incidents, 10) > 3) {
+g_form.showFieldMsg(
+'caller_id',
+'This caller already has more than 3 active incidents. New incident submission will be blocked.',
+'error'
+
+);
+
+});
+
+
+
+--------------------------------------------------
+
+Advanced reference qualifier
+
+Reference qualifiers in ServiceNow are filters applied to reference fields to restrict the records available for selection, ensuring data accuracy. Located in the dictionary entry under Reference Specifications, they enable, for example, filtering user lookups to only show active employees. Types include simple (conditions), dynamic (script includes), and advanced (JavaScript/encoded queries).
+
+reference specification is in the table dictionary can be managed from there and we can choose which records will be visible 
+----------------------------------------------------
+sys_attatchemnt table
+
+
+
+----------------------------
+gr is gliderecord
+
+gr.autoSysFields(false);
+gr.setWorkflow(false);
+
+-------------------------------
+
