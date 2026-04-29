@@ -1,0 +1,18 @@
+Low Code and no code
+
+Flow designer
+
+Using canvas and drag and drop
+
+work flow is faster as it uses more and more threads working together, but script may only use one thread that may handle many tasks
+
+					interactive and non-interactive
+interactive means we apply the record ourself 			non interactive is like import or auto creation of data 
+
+
+Look Up record (Action) 
+
+flow designer drag and drop replace server-side script
+	
+
+Duplicate record, send email , many actions are available built in

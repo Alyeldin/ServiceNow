@@ -1,0 +1,55 @@
+ServiceNow Background Script Scenarios — Incident Table
+1. Latest Active Incidents
+Write a Background Script to fetch the latest 10 active incidents using:
+GlideRecord, addActiveQuery(), orderByDesc(), and setLimit().
+2. High Priority Incident List
+Write a script to print all active Priority 1 and Priority 2 incidents with:
+Number, Caller, Priority, and Assignment Group.
+3. Unassigned Incident Check
+Write a script to find incidents where Assignment Group is empty and print the incident number and short description.
+4. Old Open Incidents
+Write a script to find incidents created more than 7 days ago and still not resolved or closed.
+5. Update Category
+Write a script to update all active incidents with empty Category and set Category as inquiry.
+6. Caller-Based Search
+Write a script to find all incidents raised by a specific caller and print the count and incident numbers.
+7. Reassignment Count Report
+Use GlideAggregate to calculate:
+COUNT, SUM, MIN, and MAX of reassignment_count for active incidents.
+8. Group-Wise Incident Count
+Use GlideAggregate to count active incidents grouped by Assignment Group.
+9. Priority-Wise Incident Count
+Use GlideAggregate to count incidents grouped by Priority.
+10. Auto-Close Resolved Incidents
+Write a Background Script to close resolved incidents older than 5 days and print how many were updated.
+11. Short Description Keyword Search
+Write a script to find incidents where short description contains "email" and print the number, caller, and state.
+12. Duplicate Incident Check
+Write a script to identify incidents with the same short description and print duplicate groups.
+13. State Update Practice
+Write a script to move all active incidents in New state to In Progress only if Assignment Group is not empty.
+14. Caller Email Validation
+Write a script to print incidents where caller email contains "admin".
+15. Incident Created Today
+Write a script to fetch all incidents created today and print total count plus latest 10 incident numbers.
+16. Business Duration Aggregate
+Use GlideAggregate to calculate average/min/max business duration for closed incidents.
+17. Assignment Group Empty Fix
+Write a script to assign incidents with empty Assignment Group and Category = network to a specific Network Support group.
+18. Urgency Impact Priority Audit
+Write a script to print incidents where Priority does not match expected Impact + Urgency logic.
+19. Bulk Work Notes
+Write a Background Script to add work notes to all active Priority 1 incidents:
+"Reviewed by background script for audit practice".
+20. Safe Update With Limit
+Write a script to update only the latest 5 active incidents and add work notes. Use setLimit(5) and orderByDesc().
+21. Incident SLA Practice
+Write a script to find incidents that have breached SLA using the task_sla table and print related incident numbers.
+22. Caller Active Check
+Write a script to find incidents where the caller is inactive and print incident number, caller name, and caller active status.
+23. Incident Without Description
+Write a script to find active incidents where Description is empty and print count and numbers.
+24. Resolve Low Priority Incidents
+Write a script to resolve active Priority 5 incidents older than 30 days and add resolution notes.
+25. Delete Practice — Do Not Run in Prod
+Write a script to delete test incidents where short description starts with "TEST" and created by you. Use setLimit() for safety.
