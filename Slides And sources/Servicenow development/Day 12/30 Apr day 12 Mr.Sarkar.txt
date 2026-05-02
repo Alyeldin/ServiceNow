@@ -1,0 +1,143 @@
+30 Apr day 12 Mr. Sarkar
+-------------------------------------
+
+Today Plan:
+
+Theme: ITSM Full Lifecycle + SLA + Workspace
+Objective: Implement complete ITSM lifecycle with SLA and workspace
+
+Key Coverage:
+. Incident, Problem, Change lifecycle
+· SLA definition and lifecycle
+· Escalation and assignment logic
+. Agent Workspace configuration
+
+Outcome:
+- Understand enterprise ITSM execution
+- Apply SLA and escalation strategies
+- Work efficiently in workspace UI
+
+
+-Knowledge Management 
+-Request Management
+-----------------------------------------------------------
+* IT Service Management *
+
+-The IT Service Management (ITSM) solution provides scalable workflows to manage and deliver
+IT services to your users all through a single cloud-based platform.
+
+-The ITSM solution can help increase your agents' productivity, resolve issues quickly, and
+improve user satisfaction. Also, powered by platform native Al, you can quickly accelerate
+technology changes and view recommended actions for incoming tickets or requests and
+drive self-service and automation through enterprise chatbot technology. The ServiceNow Al Platform
+
+-ITSM fully available for internal users
+-ITSM is internally system for all the internal user to raise a problem or in this case called incident VS CSM is for outsiders who can raise a problem in this case called case
+-Raising the incident is done from the service portal and each company has its own portal
+
+ITSM Flow
+-incident created (state is new)
+-Incident Manager Daily Open Unassigned incident and assign groups and persons to incidents 
+-After Assigning the state change to in progress
+-SLA Service Level Agreement (Dedicated Timeline upon solving Incident)
+-Then the team working contact the customer to have more and more details and add a reason for on hold (and change the state to On hold) and add comment like i need some data
+-Then SLA state is paused 
+-Then user gives data and state changes to in progress and SLA Resume
+-If its a small incident then solve it, if it is not then start creating child incident to divide the tasks to many more incidents and dividing it make it more organized
+-After Assigning child incident, then each should have a resolution
+-After that, we work on resolving the issue and then make it resolve and give the reason , and resolved doesn't mean its closed.
+-After finishing all the child incidents and solve everything then we post a comment asking did it got resolved
+-If he responded then we close the incident
+-Also the User can cancel the Incident if he solved the problem as well
+
+Hint: On recent updates most of these steps is done by ServiceNow AI
+
+
+** Once incident closed it cannot be opened again 
+
+ITSM include: 
+Incident Management
+ 
+---------------------------------------------------------------------------
+Key Words To Notice:
+
+Reassignment count (means how many time this incident got assigned to different teams and members)
+ITIL and have versions
+IT hub
+Self Service Portal 
+Now Assist
+License of ServiceNow
+Token of ServiceNow
+ITIL Rule Book (Foundation)
+Data Lookup rule
+
+Important Notes:
+ServiceNow have a huge future as it interacts with more and more Third Party as well and AI
+-------------------------------------------------------------------------------
+
+Mentioned Positions:
+
+AI Solution Architect
+CAB:  Change Advisory Board, they authorize the change 
+------------------------------------------------------------------------
+
+* Problem Management *
+
+If multiple users raise same incident, maybe also in the same time, then its marked as a problem and dealt with it on another way
+
+Problem Flow:
+- Create a problem with the same name of the multiple incident 
+- Then Add the incident in the problem 
+- Assign the problem to problem analyzer group then state change to Assess
+- Then it got confirmed from the problem analyzer as a problem and then state changed to Root Cause analysis
+- Then We give more details about the problem given in the root cause analysis by the admin or the one who raised the problem , then change the state to fix in progress 
+- Then after that Risk is issue if there is a risk when solving the issue like if solved the system might get restarted
+- Then after agreement of the risk the problem will be closed
+- After problem is resolved then each incident is updated as resolved and the ID of the problem is copied in the resolved notes
+
+** Then finally incident is solved and the problem as well
+** If solving any problem a KB knowledge bas should be done and documented as people can go back and solve the same problem with your KB and then attach the KB to their incident 
+** When incident is in the problem then the state of incident will be on Hold and 
+
+---------------------------------------------------------------------------
+General notes:
+
+** Change Management System: is the system responsible for handling changes of the problems and instances 
+** Problem is produced from production and then move to many different Instances
+** the rule is to fix the problem in developer instance and then sent to test instance and then we will move it to production 
+** Production Incident is the live one and all the previous problems is being done on production incident 
+** Change Request is saved and moved through instances by a number and got attached in each and every step when solving a problem (Like Update set)
+----------------------------------------------------------------------------------------
+-CR Change Request System
+
+Normal change ------------- Standard Change(ex: Patch Update, software Update) ------------------Emergency Change
+-Change request system: its like a documentation part for all the changes and parts of the problem and incident management system solutions to be recorded and updated for each and every part of it 
+	done weekly at the end of each week to maintain company work 
+
+** CAB:  Change Advisory Board, they authorize the change 
+** Companies do on Friday night there is a normal change management request is done
+** companies do that moving all customers and teams to use each and everyone update set
+
+Change Request States:
+New 	Assess		Authorize 	Scheduled 	Implement	Review 		Closed		Canceled 
+
+-Emergency change: ex like DB Table is down or not working then it need to be solved ASAP
+well its being raised when selecting critical option in incident, 
+it will be solved in an ON CALL Schedule and everyone of the team is joined,
+(Like ON call Shift) 
+well the change request on this incident will be names as emergency change request 
+Approvals on this request will be done by CAB and no delegates can approve
+
+** Summarize 
+All change request have the same flow but, the type change based upon the Approvals and scheduled done on CR
+
+-----------------------------------------------------------------------
+Update-set Movement:
+
+first it should be done as completed and then being exported to XML , its used between different instances to move your steps and changes upon the system to all instances needed
+
+when update set is imported then if there is no error there will be no back, but if it have error then an option appear to undo the step of importing all the update set 
+
+-----------------------------------------------------------------------
+
+
