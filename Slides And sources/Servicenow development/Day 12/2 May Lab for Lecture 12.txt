@@ -1,0 +1,13 @@
+2 May Lab for Lecture 12:
+----------------------------------
+Joe part:
+/bg  	background script
+/bgl 	bg list
+/bgc	bg count
+/um	un Mandatory 
+/uh
+/esm el table
+/rnd fill mandatory auto
+/br business rule
+/br -n new record
+/fd flow esigner

@@ -1,0 +1,88 @@
+3rd May Mr. Sarkar Session lecture 13
+-----------------------------
+
+Content will be : 
+Knowledge management system 
+KB (Knowledge base)
+SLA
+Request System
+CSM (Customer Service Management) 
+
+-------------------------------
+Knowledge center:
+(keeping track of previous work)
+Knowledge is documentation for service-now or a track of previous incident that other people can follow and attach on other incidents
+its a job for BA or Administrator not a developer, but its important to keep it in mind as a developer to mention all the changes for the table
+Knowledge article is used to reduce resolution time, like if problem is known before or someone solved it before, it reduce the time to solve an incident
+
+-------------------------------
+SLA (Service Level Agreement):
+everything in service-now having an SLA, that got attached to all things done on system , they have types and validations to be created for each and every thing in the system
+
+they are two types:
+	Response SLA----------How fast the team will respond to an incident
+	Resolution SLA--------How much time will be taken to solve the incident
+
+OLA (Operation Level Agreement)
+*SLA Can be attached to a flow like when SLA reach 50% Take an action or perform a notification
+
+Fields of SLA
+duration: and its the most important part of SLA that define its deadline
+Schedule: is a reference from a table that include all types of schedule in the company like 24X7, Sun-Fri 8 to 5, etc.
+
+Have 4 control levels:  Start condition, Pause condition, Stop condition, Reset condition
+
+------------------------------
+Events is a trigger point:
+service-now target for now code architecture so they try to build as much as API to maintain all the actions needed for users to use instead of writing script
+
+Ok so event is made for like data that is not needed to be stored in Database and need to be shown in or used by the user so in this case we go for events that have simple script to save some data that will be shown temporarily to the user  
+
+events is a complex trigger that need some data and complex code that will help us to make some trigger 
+for example: Temporary email and password is created when an incident is created to make the user a member of the service portal
+creating temp data also is in the script as well
+ 
+its used in business rule :
+Show XML of the user
+how to use ------gs.eventQueue('name of the event created', current, ...)
+
+Code example:
+(function executeRule(current, previous /*null when async*/) {
+	var gr = new GlideRecord( 'sys_user');
+	gr.initialize();
+	gr.name=current.u_string_1;
+	gr.user_password.setDisplayValue('Temp@159');
+	gr.password_needs_reset='true';
+	var id = gr.insert();
+	var gr1= new GlideRecord('sys_user');
+	gr1.addQuery('sys_id',id.tostring());
+	gr1.query();
+
+	if(gr1.next()){
+
+	var tempass='Temp@159';
+	var userid=gr1.user_name;
+
+	gs.eventQueue('incident.p1.created',current,tempass,userid);
+})(current, previous);
+
+}
+------------------------------ 
+CSM Customer Service Management :
+With the Customer Service Management application, you can automate your processes and
+give your service agents visibility into the customer systems and tools that they need to deliver
+proactive services to your customers. Key benefits of the Customer Service Management
+application include:
+
+Notes:
+-Customer service management is available for public people to be used all the customer issues
+-like ITSM but for customers
+-Incident will be named cases
+-They communicate through different channels like chatbot, email, social media, AI agents, mobile , service portals, CS agent
+-On hold state -- will be Awaiting Info state
+
+** Popular Question is what is the main differences between CSM and ITSM
+CSM has a flow as well 
+
+BA provide data in Excel sheet and with the help of architect the data will be imported and moved from module to module
+------------------------------
