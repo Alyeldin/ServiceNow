@@ -1,0 +1,7 @@
+Update-set:
+
+-change update set whenever application scope change MULTI SCOPE
+-each name should have version
+-each day have task so if i have a 15 task i will create 15 updates set
+-move only configurations but not data of tables 
+-Having many versions allow you to rollback easily and check where is the error like agile concept , smaller division of task will make everything clearer
