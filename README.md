@@ -3,11 +3,11 @@ Tasks and projects along ITI ServiceNow track
 
 The Repository is divided into two parts: 
 
----> Codes and projects folder
+---> Codes and projects folder (Coding Area)
 
-        this folder contain all the course codes and practices and projects grouped by courses along the Track         
+        this folder contain all the course codes and practices and projects grouped by courses along the Track, Labs and Projects (Coding Area)         
 
----> Slides and sources folder
+---> Slides and sources folder (Theoritical Area)
 
-        this folder contain all the slides and sources that we recieved during the track and also grouped by courses along the Track
+        this folder contain all the slides and sources that we recieved during the track and also grouped by courses along the Track, Slides and Sources (Theoritical Area) 
 
