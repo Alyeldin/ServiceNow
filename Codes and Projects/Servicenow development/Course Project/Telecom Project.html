@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Telecom Operations Management Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        sn: {
+                            dark: '#032b43',
+                            primary: '#005955',
+                            secondary: '#81b5a1',
+                            accent: '#4B5563',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; }
+        
+        /* Navigation Styles */
+        .nav-link.active {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            font-weight: 600;
+            border-left: 4px solid #0369a1;
+        }
+        .nav-link { border-left: 4px solid transparent; cursor: pointer; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Page Transitions */
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.4s ease-out forwards; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Improved Table Styles - No Overlapping */
+        .sn-table { @apply w-full text-left border-collapse bg-white; }
+        .sn-table th { @apply bg-slate-100 text-slate-700 font-bold p-4 border-b-2 border-slate-300 text-sm tracking-wide; }
+        .sn-table td { @apply p-4 border-b border-slate-200 text-slate-700 text-sm align-top; }
+        .sn-table tr:hover td { @apply bg-blue-50/50 transition-colors; }
+
+        /* Card Styles */
+        .content-card { @apply bg-white rounded-xl shadow-sm border border-slate-200 p-8 mb-8 w-full; }
+        .card-header { @apply border-b border-slate-200 pb-4 mb-6 flex items-center gap-3; }
+        
+        .info-box { @apply bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-md my-6 text-blue-900; }
+        .warning-box { @apply bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-md my-6 text-rose-900; }
+        .success-box { @apply bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-md my-6 text-emerald-900; }
+    </style>
+</head>
+<body class="font-sans text-slate-700 antialiased h-screen flex overflow-hidden">
+
+    <aside class="w-80 bg-white border-r border-slate-200 h-full flex flex-col shrink-0 shadow-sm z-10 relative">
+        <div class="p-6 border-b border-slate-200 bg-sn-dark text-white">
+            <div class="flex items-center gap-4 mb-3">
+                <div class="w-10 h-10 rounded bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                    <i class="fa-solid fa-satellite-dish text-xl"></i>
+                </div>
+                <h1 class="text-lg font-bold leading-tight">Telecom Ops<br><span class="text-xs text-slate-300 font-normal tracking-wide">GRADUATION PROJECT</span></h1>
+            </div>
+        </div>
+        
+        <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1" id="nav-menu">
+            <!-- Project Specs -->
+            <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Project Specs</p>
+            <a data-target="page-overview" class="nav-link active block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors">1 & 2. Overview & Objectives</a>
+            <a data-target="page-concepts" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors">3 & 4. Concepts & Build Order</a>
+            <a data-target="page-structure" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors">5 - 8. Modules & Security Structure</a>
+            
+            <!-- Execution Phases -->
+            <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 mt-8">Execution Phases</p>
+            <a data-target="page-phase1" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-play w-5 text-blue-500"></i> Phase 1: Setup</a>
+            <a data-target="page-phase2" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-database w-5 text-purple-500"></i> Phase 2: Data Model</a>
+            <a data-target="page-phase3" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-table-columns w-5 text-emerald-500"></i> Phase 3: Forms & UI</a>
+            <a data-target="page-phase4" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-lock w-5 text-rose-500"></i> Phase 4: Security</a>
+            <a data-target="page-phase5" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-brands fa-js w-5 text-amber-500"></i> Phase 5: Client Scripts</a>
+            <a data-target="page-phase6" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-server w-5 text-indigo-500"></i> Phase 6: Server Scripts</a>
+            <a data-target="page-phase7" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-code-branch w-5 text-cyan-500"></i> Phase 7: Automation</a>
+            <a data-target="page-phase8" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-stopwatch w-5 text-orange-500"></i> Phase 8: SLA & Notifications</a>
+            <a data-target="page-phase9" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-laptop w-5 text-teal-500"></i> Phase 9: Service Portal</a>
+            <a data-target="page-phase10" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-chart-pie w-5 text-pink-500"></i> Phase 10: Dashboards</a>
+            <a data-target="page-phase11" class="nav-link block px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 rounded-r-lg transition-colors"><i class="fa-solid fa-flag-checkered w-5 text-emerald-600"></i> Phase 11: Final Demo</a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto h-full bg-slate-50 relative" id="main-container">
+        
+        <!-- Top Hero Bar (Stays constant) -->
+        <div class="bg-gradient-to-r from-sn-dark to-slate-800 text-white px-10 py-12 border-b border-slate-700 shadow-md">
+            <div class="max-w-5xl mx-auto">
+                <div class="inline-block bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-4">Complete End-to-End Project</div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">Enterprise Telecom Operations Management</h1>
+                <p class="text-lg text-slate-300 font-light">Beginner Friendly CSA + CAD + ITSM + Portal Project</p>
+            </div>
+        </div>
+
+        <!-- Content Area where "pages" will be swapped -->
+        <div class="max-w-5xl mx-auto p-8 lg:p-10">
+
+            <!-- PAGE: OVERVIEW & OBJECTIVES -->
+            <div id="page-overview" class="page-content active">
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-bullseye text-2xl text-blue-600"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">1. Project Overview</h2>
+                    </div>
+                    
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Project Name</p>
+                                <p class="font-semibold text-slate-800 text-lg">Enterprise Telecom Operations Management Platform</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Platform</p>
+                                <p class="font-semibold text-slate-800 text-lg">ServiceNow PDI <span class="text-sm font-normal text-slate-500">(Personal Developer Instance)</span></p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Application Scope</p>
+                                <p class="font-mono bg-white border px-2 py-1 rounded text-sm text-slate-700 inline-block">x_telcom_ops</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Application Type</p>
+                                <p class="font-semibold text-slate-800">Scoped Application</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Project Duration</p>
+                                <p class="font-semibold text-slate-800"><i class="fa-regular fa-clock text-emerald-500 mr-2"></i>8–9 Hours</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Project Level</p>
+                                <p class="font-semibold text-slate-800">ServiceNow Fundamentals + Development</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-header mt-12">
+                        <i class="fa-solid fa-list-check text-2xl text-emerald-600"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">2. Project Objective</h2>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-lg">Students will build a telecom operations application where:</p>
+                    
+                    <ul class="space-y-4 text-slate-700">
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg">Customers can <strong>register</strong> from portal</span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg">Customers can <strong>raise telecom complaints</strong></span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg">Complaint agents can <strong>manage complaints</strong></span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg">Incidents will be <strong>automatically created</strong></span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg">Network outages can be <strong>tracked</strong></span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg">Field engineers can <strong>receive tasks</strong></span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg"><strong>SLA</strong> can monitor resolution time</span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg"><strong>Notifications and events</strong> will trigger automatically</span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xl mt-0.5"></i>
+                            <span class="text-lg"><strong>Reports and dashboards</strong> will monitor KPIs</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PAGE: CONCEPTS & EXECUTION ORDER -->
+            <div id="page-concepts" class="page-content">
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-brain text-2xl text-purple-600"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">3. Concepts Covered</h2>
+                    </div>
+                    <p class="text-slate-600 mb-6">This project helps students practice a wide variety of ServiceNow development concepts in a real-world scenario.</p>
+                    
+                    <div class="flex flex-wrap gap-3 mb-10">
+                        <span class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-200 font-medium">CSA Concepts</span>
+                        <span class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-200 font-medium">Incident Management</span>
+                        <span class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-200 font-medium">Task Management</span>
+                        <span class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-200 font-medium">Table Relationships</span>
+                        <span class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-200 font-medium">Form Design</span>
+                        <span class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-200 font-medium">Service Portal</span>
+                        <span class="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full border border-emerald-200 font-medium">Client Scripts</span>
+                        <span class="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full border border-emerald-200 font-medium">UI Policies</span>
+                        <span class="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full border border-emerald-200 font-medium">Data Policies</span>
+                        <span class="bg-purple-50 text-purple-700 px-4 py-2 rounded-full border border-purple-200 font-medium">Business Rules</span>
+                        <span class="bg-purple-50 text-purple-700 px-4 py-2 rounded-full border border-purple-200 font-medium">Script Includes</span>
+                        <span class="bg-purple-50 text-purple-700 px-4 py-2 rounded-full border border-purple-200 font-medium">GlideAjax</span>
+                        <span class="bg-amber-50 text-amber-700 px-4 py-2 rounded-full border border-amber-200 font-medium">Flow Designer</span>
+                        <span class="bg-rose-50 text-rose-700 px-4 py-2 rounded-full border border-rose-200 font-medium">Notifications</span>
+                        <span class="bg-rose-50 text-rose-700 px-4 py-2 rounded-full border border-rose-200 font-medium">Events</span>
+                        <span class="bg-rose-50 text-rose-700 px-4 py-2 rounded-full border border-rose-200 font-medium">SLA</span>
+                        <span class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-200 font-medium">Reports</span>
+                        <span class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-200 font-medium">Dashboards</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full border border-slate-300 font-medium">ACL</span>
+                    </div>
+
+                    <div class="card-header mt-12">
+                        <i class="fa-solid fa-list-ol text-2xl text-orange-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">4. Complete Build Execution Order</h2>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong><i class="fa-solid fa-triangle-exclamation mr-2"></i>Mandatory Order:</strong> Students MUST follow this specific execution order to ensure system dependencies (like tables existing before writing scripts for them) are met.
+                    </div>
+
+                    <div class="border rounded-lg overflow-hidden border-slate-200 shadow-sm mt-6">
+                        <table class="sn-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-32 bg-slate-100">Phase</th>
+                                    <th class="bg-slate-100">Module Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="font-bold text-blue-600">Phase 1</td><td class="font-medium">Application Setup</td></tr>
+                                <tr><td class="font-bold text-purple-600">Phase 2</td><td class="font-medium">Data Model Setup</td></tr>
+                                <tr><td class="font-bold text-emerald-600">Phase 3</td><td class="font-medium">Forms & UI</td></tr>
+                                <tr><td class="font-bold text-rose-600">Phase 4</td><td class="font-medium">Security</td></tr>
+                                <tr><td class="font-bold text-amber-600">Phase 5</td><td class="font-medium">Client Side Scripting</td></tr>
+                                <tr><td class="font-bold text-indigo-600">Phase 6</td><td class="font-medium">Server Side Scripting</td></tr>
+                                <tr><td class="font-bold text-cyan-600">Phase 7</td><td class="font-medium">Automation</td></tr>
+                                <tr><td class="font-bold text-orange-600">Phase 8</td><td class="font-medium">SLA + Notifications</td></tr>
+                                <tr><td class="font-bold text-teal-600">Phase 9</td><td class="font-medium">Service Portal</td></tr>
+                                <tr><td class="font-bold text-pink-600">Phase 10</td><td class="font-medium">Reports & Dashboard</td></tr>
+                                <tr><td class="font-bold text-emerald-700">Phase 11</td><td class="font-medium">Final Demo</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: MODULES & STRUCTURE -->
+            <div id="page-structure" class="page-content">
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-cubes text-2xl text-teal-600"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">5. Application Modules</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-users text-2xl text-blue-500 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Customer Management</h3><p class="text-slate-600 mt-1">Store telecom customers</p></div>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-file-invoice text-2xl text-emerald-500 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Service Plan Management</h3><p class="text-slate-600 mt-1">Telecom plans catalog</p></div>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-headset text-2xl text-purple-500 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Complaint Management</h3><p class="text-slate-600 mt-1">Manage complaint lifecycle</p></div>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-triangle-exclamation text-2xl text-rose-500 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Incident Management</h3><p class="text-slate-600 mt-1">ITSM integration</p></div>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-wifi text-2xl text-indigo-500 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Network Outage Management</h3><p class="text-slate-600 mt-1">Outage tracking and mapping</p></div>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-person-digging text-2xl text-amber-500 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Field Engineer Management</h3><p class="text-slate-600 mt-1">Dispatch and engineer tasks</p></div>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-hand-holding-dollar text-2xl text-green-600 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Compensation Management</h3><p class="text-slate-600 mt-1">Customer compensation</p></div>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-lg bg-slate-50 flex items-start gap-4">
+                            <i class="fa-solid fa-chart-line text-2xl text-cyan-500 mt-1"></i>
+                            <div><h3 class="font-bold text-slate-800 text-lg">Reporting & Dashboard</h3><p class="text-slate-600 mt-1">KPI monitoring</p></div>
+                        </div>
+                    </div>
+
+                    <div class="card-header mt-12">
+                        <i class="fa-solid fa-user-shield text-2xl text-indigo-600"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">6, 7 & 8. Roles & Groups</h2>
+                    </div>
+
+                    <!-- Single column layout for wide tables to prevent squishing -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-700 mb-3">Role Structure</h3>
+                            <div class="border rounded-lg overflow-hidden border-slate-200 shadow-sm">
+                                <table class="sn-table">
+                                    <thead><tr><th>Role Name</th><th>Responsibility</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-mono bg-slate-50 font-semibold">x_telcom_ops.customer</td><td>Portal access</td></tr>
+                                        <tr><td class="font-mono bg-slate-50 font-semibold">x_telcom_ops.complaint_agent</td><td>Handle complaints</td></tr>
+                                        <tr><td class="font-mono bg-slate-50 font-semibold">x_telcom_ops.network_engineer</td><td>Manage outages</td></tr>
+                                        <tr><td class="font-mono bg-slate-50 font-semibold">x_telcom_ops.field_engineer</td><td>Resolve engineer tasks</td></tr>
+                                        <tr><td class="font-mono bg-slate-50 font-semibold">x_telcom_ops.operations_manager</td><td>Approvals & dashboard</td></tr>
+                                        <tr><td class="font-mono bg-slate-50 font-semibold">itil</td><td>Incident handling</td></tr>
+                                        <tr><td class="font-mono bg-slate-50 font-semibold">admin</td><td>Full access</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-700 mb-3">Group Structure & Mapping</h3>
+                            <div class="border rounded-lg overflow-hidden border-slate-200 shadow-sm">
+                                <table class="sn-table">
+                                    <thead><tr><th>Group Name</th><th>Purpose</th><th>Role Assigned</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-bold">Telecom Customers</td><td>Portal users</td><td class="font-mono text-blue-600 bg-blue-50/50">x_telcom_ops.customer</td></tr>
+                                        <tr><td class="font-bold">Complaint Resolution Team</td><td>Complaint handling</td><td class="font-mono text-blue-600 bg-blue-50/50">x_telcom_ops.complaint_agent</td></tr>
+                                        <tr><td class="font-bold">Network Operations Team</td><td>Outage handling</td><td class="font-mono text-blue-600 bg-blue-50/50">x_telcom_ops.network_engineer</td></tr>
+                                        <tr><td class="font-bold">Field Engineering Team</td><td>Engineer work</td><td class="font-mono text-blue-600 bg-blue-50/50">x_telcom_ops.field_engineer</td></tr>
+                                        <tr><td class="font-bold">Telecom Operations Team</td><td>Operations monitoring</td><td class="font-mono text-blue-600 bg-blue-50/50">x_telcom_ops.operations_manager</td></tr>
+                                        <tr><td class="font-bold">ITSM Support Team</td><td>Incident handling</td><td class="font-mono text-blue-600 bg-blue-50/50">itil</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 1 -->
+            <div id="page-phase1" class="page-content">
+                <div class="content-card border-t-4 border-t-blue-500">
+                    <div class="card-header">
+                        <i class="fa-solid fa-play text-2xl text-blue-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 1 — APPLICATION SETUP</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-6 p-6 border border-slate-200 rounded-lg bg-white shadow-sm hover:border-blue-300 transition-colors">
+                            <div class="w-12 h-12 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">1</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">CREATE SCOPED APPLICATION</h3>
+                                <p class="text-slate-600 mt-2"><strong>Application Name:</strong> Telecom Operations Management</p>
+                                <p class="text-slate-600 mt-1"><strong>Scope:</strong> <span class="font-mono bg-slate-100 px-2 py-1 rounded">x_telcom_ops</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-6 p-6 border border-slate-200 rounded-lg bg-white shadow-sm hover:border-blue-300 transition-colors">
+                            <div class="w-12 h-12 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">2</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">CREATE ROLES</h3>
+                                <p class="text-slate-600 mt-2">Create all roles from the Role Structure section.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-6 p-6 border border-slate-200 rounded-lg bg-white shadow-sm hover:border-blue-300 transition-colors">
+                            <div class="w-12 h-12 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">3</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">CREATE GROUPS</h3>
+                                <p class="text-slate-600 mt-2">Create all groups from the Group Structure section.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-6 p-6 border border-slate-200 rounded-lg bg-white shadow-sm hover:border-blue-300 transition-colors">
+                            <div class="w-12 h-12 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">4</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">ASSIGN ROLES TO GROUPS</h3>
+                                <p class="text-slate-600 mt-2">Assign roles using the Role and Group Mapping table.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-6 p-6 border border-slate-200 rounded-lg bg-white shadow-sm hover:border-blue-300 transition-colors">
+                            <div class="w-12 h-12 shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">5</div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">CREATE APPLICATION MENU</h3>
+                                <p class="text-slate-600 mt-2"><strong>Menu Name:</strong> Telecom Operations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 2 (DATA MODEL) -->
+            <div id="page-phase2" class="page-content">
+                <div class="content-card border-t-4 border-t-purple-500">
+                    <div class="card-header border-none pb-0 mb-2">
+                        <i class="fa-solid fa-database text-2xl text-purple-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 2 — DATA MODEL SETUP</h2>
+                    </div>
+
+                    <div class="warning-box bg-rose-50 border-rose-500 text-rose-900 shadow-sm mt-6 mb-10">
+                        <h3 class="font-bold text-xl mb-3"><i class="fa-solid fa-circle-exclamation mr-2"></i> IMPORTANT TASK TABLE UNDERSTANDING</h3>
+                        <p class="mb-4 text-lg">If a table extends the <strong>Task</strong> table, students automatically get these fields. <span class="font-bold underline text-red-700">Students SHOULD NOT create these fields manually.</span> Students should USE existing task fields.</p>
+                        <div class="bg-white rounded border border-rose-200 overflow-hidden">
+                            <table class="w-full text-left text-sm">
+                                <thead><tr class="bg-rose-100/50"><th class="p-3 border-b border-rose-200">Field</th><th class="p-3 border-b border-rose-200">Purpose</th><th class="p-3 border-b border-rose-200">Field</th><th class="p-3 border-b border-rose-200">Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td class="p-3 border-b border-rose-100 font-mono font-bold">Number</td><td class="p-3 border-b border-rose-100">Auto-generated task number</td><td class="p-3 border-b border-rose-100 font-mono font-bold">Comments</td><td class="p-3 border-b border-rose-100">Customer comments</td></tr>
+                                    <tr><td class="p-3 border-b border-rose-100 font-mono font-bold">State</td><td class="p-3 border-b border-rose-100">Status</td><td class="p-3 border-b border-rose-100 font-mono font-bold">Work Notes</td><td class="p-3 border-b border-rose-100">Internal notes</td></tr>
+                                    <tr><td class="p-3 border-b border-rose-100 font-mono font-bold">Priority</td><td class="p-3 border-b border-rose-100">Priority</td><td class="p-3 border-b border-rose-100 font-mono font-bold">Short Description</td><td class="p-3 border-b border-rose-100">Summary</td></tr>
+                                    <tr><td class="p-3 border-b border-rose-100 font-mono font-bold">Assigned To</td><td class="p-3 border-b border-rose-100">Assigned user</td><td class="p-3 border-b border-rose-100 font-mono font-bold">Description</td><td class="p-3 border-b border-rose-100">Details</td></tr>
+                                    <tr><td class="p-3 font-mono font-bold">Assignment Group</td><td class="p-3">Assigned group</td><td class="p-3 font-mono font-bold">Due Date</td><td class="p-3">Due date</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Layout Fix: Single column for wide tables to prevent overlapping -->
+                    <div class="space-y-12">
+                        
+                        <!-- Table 1 -->
+                        <div class="border rounded-xl overflow-hidden border-slate-300 shadow-md bg-white">
+                            <div class="bg-slate-800 text-white p-5">
+                                <h3 class="font-bold text-xl mb-1">TABLE 1 — CUSTOMER PROFILE TABLE</h3>
+                                <div class="flex flex-wrap gap-4 text-sm mt-3">
+                                    <span class="bg-slate-700 px-3 py-1 rounded border border-slate-600"><span class="text-slate-400 mr-1">Name:</span> <span class="font-mono">x_telcom_customer_profile</span></span>
+                                    <span class="bg-slate-700 px-3 py-1 rounded border border-slate-600"><span class="text-slate-400 mr-1">Extends:</span> <span class="text-emerald-400 font-bold">None (Create new custom table)</span></span>
+                                </div>
+                                <p class="text-slate-300 text-sm mt-3 border-t border-slate-600 pt-3"><strong>Purpose:</strong> Stores telecom customer details.</p>
+                            </div>
+                            <div class="overflow-x-auto p-4">
+                                <h4 class="font-bold text-slate-700 mb-3 ml-2 text-lg">Fields Students Must Create</h4>
+                                <table class="sn-table">
+                                    <thead><tr><th>Field Label</th><th>Field Type</th><th>Choice Values</th><th>Reference Table</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold">Customer Number</td><td>Auto Number</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Full Name</td><td>String</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Mobile Number</td><td>Phone Number</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Email Address</td><td>Email</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Address</td><td>String</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">City</td><td>String</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">State</td><td>Choice</td><td class="text-blue-700">NY, CA, TX, FL, IL</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">ZIP Code</td><td>String</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Service Plan</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">x_telcom_service_plan</td></tr>
+                                        <tr><td class="font-semibold">Customer Type</td><td>Choice</td><td class="text-blue-700">Prepaid, Postpaid, Enterprise</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Customer Status</td><td>Choice</td><td class="text-blue-700">Active, Suspended, Disconnected</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">User Account</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">sys_user</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Table 2 -->
+                        <div class="border rounded-xl overflow-hidden border-slate-300 shadow-md bg-white">
+                            <div class="bg-slate-800 text-white p-5">
+                                <h3 class="font-bold text-xl mb-1">TABLE 2 — SERVICE PLAN TABLE</h3>
+                                <div class="flex flex-wrap gap-4 text-sm mt-3">
+                                    <span class="bg-slate-700 px-3 py-1 rounded border border-slate-600"><span class="text-slate-400 mr-1">Name:</span> <span class="font-mono">x_telcom_service_plan</span></span>
+                                    <span class="bg-slate-700 px-3 py-1 rounded border border-slate-600"><span class="text-slate-400 mr-1">Extends:</span> <span class="text-emerald-400 font-bold">None (Create new custom table)</span></span>
+                                </div>
+                                <p class="text-slate-300 text-sm mt-3 border-t border-slate-600 pt-3"><strong>Purpose:</strong> Stores telecom service plans.</p>
+                            </div>
+                            <div class="overflow-x-auto p-4">
+                                <h4 class="font-bold text-slate-700 mb-3 ml-2 text-lg">Fields Students Must Create</h4>
+                                <table class="sn-table">
+                                    <thead><tr><th>Field Label</th><th>Field Type</th><th>Choice Values</th><th>Reference Table</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold">Plan Number</td><td>Auto Number</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Plan Name</td><td>String</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Plan Type</td><td>Choice</td><td class="text-blue-700">Mobile, Broadband, Fiber</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Monthly Cost</td><td>Currency</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Data Limit</td><td>Integer</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Call Limit</td><td>Integer</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">SMS Limit</td><td>Integer</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Plan Status</td><td>Choice</td><td class="text-blue-700">Active, Retired</td><td class="font-mono text-slate-400">—</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Table 3 (Task Extension) -->
+                        <div class="border rounded-xl overflow-hidden border-purple-300 shadow-lg bg-white ring-2 ring-purple-100">
+                            <div class="bg-purple-900 text-white p-5 border-b-4 border-purple-500">
+                                <h3 class="font-bold text-xl mb-1">TABLE 3 — TELECOM COMPLAINT TABLE</h3>
+                                <div class="flex flex-wrap gap-4 text-sm mt-3">
+                                    <span class="bg-purple-800 px-3 py-1 rounded border border-purple-700"><span class="text-purple-300 mr-1">Name:</span> <span class="font-mono">x_telcom_customer_complaint</span></span>
+                                    <span class="bg-rose-600 px-3 py-1 rounded border border-rose-500 font-bold shadow"><i class="fa-solid fa-link mr-2"></i>Extends: Task Table</span>
+                                </div>
+                                <p class="text-purple-200 text-sm mt-3 border-t border-purple-700 pt-3"><strong>Purpose:</strong> Stores telecom complaints.</p>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-5 border-b border-purple-100">
+                                <h4 class="font-bold text-purple-900 mb-2">IMPORTANT TASK TABLE NOTE</h4>
+                                <p class="mb-3 text-slate-700"><strong>Rename:</strong> <span class="bg-white px-2 py-1 border rounded line-through text-slate-400">Number</span> <i class="fa-solid fa-arrow-right mx-2 text-purple-400"></i> <strong class="bg-white px-2 py-1 border border-purple-300 rounded text-purple-700">Complaint Number</strong></p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                                    <div class="bg-white p-4 rounded border border-purple-200">
+                                        <strong class="block mb-2 text-sm uppercase tracking-wide text-purple-800">Task Fields Students Should Use</strong>
+                                        <ul class="text-sm space-y-1 text-slate-700">
+                                            <li><strong>State:</strong> Complaint lifecycle</li>
+                                            <li><strong>Priority:</strong> Complaint urgency</li>
+                                            <li><strong>Assigned To:</strong> Complaint agent</li>
+                                            <li><strong>Assignment Group:</strong> Complaint team</li>
+                                            <li><strong>Comments:</strong> Customer updates</li>
+                                            <li><strong>Work Notes:</strong> Internal notes</li>
+                                        </ul>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div class="bg-white p-3 rounded border border-slate-200">
+                                            <strong class="block mb-1 text-sm text-slate-600">Recommended State Choices</strong>
+                                            <p class="text-sm">New, Open, Work In Progress, Pending, Resolved, Closed</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded border border-slate-200">
+                                            <strong class="block mb-1 text-sm text-slate-600">Recommended Priority Choices</strong>
+                                            <p class="text-sm">1 - Critical, 2 - High, 3 - Medium, 4 - Low</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto p-4">
+                                <h4 class="font-bold text-slate-700 mb-3 ml-2 text-lg">Fields Students Must Create</h4>
+                                <table class="sn-table">
+                                    <thead><tr><th>Field Label</th><th>Field Type</th><th>Choice Values</th><th>Reference Table</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold">Customer</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">x_telcom_customer_profile</td></tr>
+                                        <tr><td class="font-semibold">Complaint Type</td><td>Choice</td><td class="text-blue-700">No Network, Slow Internet, Call Drop, Billing Issue, SIM Issue</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Complaint Channel</td><td>Choice</td><td class="text-blue-700">Portal, Call Center, Store</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Impact Level</td><td>Choice</td><td class="text-blue-700">Critical, High, Medium, Low</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Area Impacted</td><td>String</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Resolution Status</td><td>Choice</td><td class="text-blue-700">Open, In Progress, Pending Customer, Resolved, Closed</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Related Outage</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">x_telcom_network_outage</td></tr>
+                                        <tr><td class="font-semibold">Related Incident</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">incident</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Table 4 -->
+                        <div class="border rounded-xl overflow-hidden border-indigo-300 shadow-lg bg-white ring-2 ring-indigo-100">
+                            <div class="bg-indigo-900 text-white p-5 border-b-4 border-indigo-500">
+                                <h3 class="font-bold text-xl mb-1">TABLE 4 — NETWORK OUTAGE TABLE</h3>
+                                <div class="flex flex-wrap gap-4 text-sm mt-3">
+                                    <span class="bg-indigo-800 px-3 py-1 rounded border border-indigo-700"><span class="text-indigo-300 mr-1">Name:</span> <span class="font-mono">x_telcom_network_outage</span></span>
+                                    <span class="bg-rose-600 px-3 py-1 rounded border border-rose-500 font-bold shadow"><i class="fa-solid fa-link mr-2"></i>Extends: Task Table</span>
+                                </div>
+                                <p class="text-indigo-200 text-sm mt-3 border-t border-indigo-700 pt-3"><strong>Purpose:</strong> Tracks network outages.</p>
+                            </div>
+                            
+                            <div class="bg-indigo-50 p-4 border-b border-indigo-100 flex items-center gap-4">
+                                <i class="fa-solid fa-circle-info text-2xl text-indigo-500"></i>
+                                <div>
+                                    <strong class="block text-indigo-900">IMPORTANT TASK TABLE NOTE</strong>
+                                    <p class="text-slate-700 mt-1"><strong>Rename:</strong> Number <i class="fa-solid fa-arrow-right mx-2 text-indigo-400"></i> <strong class="bg-white px-2 py-1 border border-indigo-300 rounded text-indigo-700">Outage Number</strong>. Use existing Task fields.</p>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto p-4">
+                                <h4 class="font-bold text-slate-700 mb-3 ml-2 text-lg">Fields Students Must Create</h4>
+                                <table class="sn-table">
+                                    <thead><tr><th>Field Label</th><th>Field Type</th><th>Choice Values</th><th>Reference Table</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold">Outage Type</td><td>Choice</td><td class="text-blue-700">Tower Down, Fiber Cut, Power Failure, Network Congestion</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Impacted Area</td><td>String</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Impacted Customers</td><td>Integer</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Severity</td><td>Choice</td><td class="text-blue-700">Critical, High, Medium, Low</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Root Cause</td><td>HTML</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Outage Status</td><td>Choice</td><td class="text-blue-700">Open, Investigating, Engineer Assigned, Resolved, Closed</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Related Incident</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">incident</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Table 5 -->
+                        <div class="border rounded-xl overflow-hidden border-amber-300 shadow-lg bg-white ring-2 ring-amber-100">
+                            <div class="bg-amber-800 text-white p-5 border-b-4 border-amber-500">
+                                <h3 class="font-bold text-xl mb-1">TABLE 5 — FIELD ENGINEER TASK TABLE</h3>
+                                <div class="flex flex-wrap gap-4 text-sm mt-3">
+                                    <span class="bg-amber-700 px-3 py-1 rounded border border-amber-600"><span class="text-amber-300 mr-1">Name:</span> <span class="font-mono">x_telcom_field_engineer_task</span></span>
+                                    <span class="bg-rose-600 px-3 py-1 rounded border border-rose-500 font-bold shadow"><i class="fa-solid fa-link mr-2"></i>Extends: Task Table</span>
+                                </div>
+                                <p class="text-amber-100 text-sm mt-3 border-t border-amber-700 pt-3"><strong>Purpose:</strong> Stores engineer repair work.</p>
+                            </div>
+                            
+                            <div class="bg-amber-50 p-4 border-b border-amber-100 flex items-center gap-4">
+                                <i class="fa-solid fa-circle-info text-2xl text-amber-500"></i>
+                                <div>
+                                    <strong class="block text-amber-900">IMPORTANT TASK TABLE NOTE</strong>
+                                    <p class="text-slate-700 mt-1"><strong>Rename:</strong> Number <i class="fa-solid fa-arrow-right mx-2 text-amber-400"></i> <strong class="bg-white px-2 py-1 border border-amber-300 rounded text-amber-700">Engineer Task Number</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto p-4">
+                                <h4 class="font-bold text-slate-700 mb-3 ml-2 text-lg">Fields Students Must Create</h4>
+                                <table class="sn-table">
+                                    <thead><tr><th>Field Label</th><th>Field Type</th><th>Choice Values</th><th>Reference Table</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold">Related Outage</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">x_telcom_network_outage</td></tr>
+                                        <tr><td class="font-semibold">Engineer</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">sys_user</td></tr>
+                                        <tr><td class="font-semibold">Engineer Status</td><td>Choice</td><td class="text-blue-700">Assigned, Traveling, On Site, Work Completed</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Estimated Arrival</td><td>Date/Time</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Resolution Notes</td><td>HTML</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Table 6 -->
+                        <div class="border rounded-xl overflow-hidden border-slate-300 shadow-md bg-white">
+                            <div class="bg-slate-800 text-white p-5">
+                                <h3 class="font-bold text-xl mb-1">TABLE 6 — CUSTOMER COMPENSATION TABLE</h3>
+                                <div class="flex flex-wrap gap-4 text-sm mt-3">
+                                    <span class="bg-slate-700 px-3 py-1 rounded border border-slate-600"><span class="text-slate-400 mr-1">Name:</span> <span class="font-mono">x_telcom_customer_compensation</span></span>
+                                    <span class="bg-slate-700 px-3 py-1 rounded border border-slate-600"><span class="text-slate-400 mr-1">Extends:</span> <span class="text-emerald-400 font-bold">None (Create new custom table)</span></span>
+                                </div>
+                                <p class="text-slate-300 text-sm mt-3 border-t border-slate-600 pt-3"><strong>Purpose:</strong> Stores customer compensation.</p>
+                            </div>
+                            <div class="overflow-x-auto p-4">
+                                <h4 class="font-bold text-slate-700 mb-3 ml-2 text-lg">Fields Students Must Create</h4>
+                                <table class="sn-table">
+                                    <thead><tr><th>Field Label</th><th>Field Type</th><th>Choice Values</th><th>Reference Table</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold">Compensation Number</td><td>Auto Number</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Customer</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">x_telcom_customer_profile</td></tr>
+                                        <tr><td class="font-semibold">Related Complaint</td><td>Reference</td><td>—</td><td class="font-mono text-blue-600 bg-blue-50">x_telcom_customer_complaint</td></tr>
+                                        <tr><td class="font-semibold">Compensation Type</td><td>Choice</td><td class="text-blue-700">Bill Credit, Refund, Free Data</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Compensation Amount</td><td>Currency</td><td>—</td><td class="font-mono text-slate-400">—</td></tr>
+                                        <tr><td class="font-semibold">Approval Status</td><td>Choice</td><td class="text-blue-700">Pending, Approved, Rejected</td><td class="font-mono text-slate-400">—</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Architecture Diagram -->
+                        <div class="border rounded-xl overflow-hidden border-slate-300 shadow-md bg-white mt-12">
+                            <div class="bg-slate-100 p-5 border-b border-slate-200">
+                                <h3 class="font-bold text-xl text-slate-800"><i class="fa-solid fa-project-diagram mr-3 text-slate-500"></i>TABLE RELATIONSHIPS FLOW</h3>
+                            </div>
+                            <div class="p-10 flex flex-col items-center gap-4 bg-slate-50">
+                                <div class="bg-blue-600 text-white p-4 rounded-lg shadow-lg w-64 text-center font-bold text-lg">Customer</div>
+                                <div class="flex flex-col items-center">
+                                    <i class="fa-solid fa-arrow-down text-2xl text-slate-400 my-2"></i>
+                                    <div class="bg-purple-600 text-white p-4 rounded-lg shadow-lg w-64 text-center font-bold text-lg">Complaint</div>
+                                    <i class="fa-solid fa-arrow-down text-2xl text-slate-400 my-2"></i>
+                                    <div class="bg-rose-600 text-white p-4 rounded-lg shadow-lg w-64 text-center font-bold text-lg">Incident</div>
+                                    <i class="fa-solid fa-arrow-down text-2xl text-slate-400 my-2"></i>
+                                    <div class="bg-indigo-600 text-white p-4 rounded-lg shadow-lg w-64 text-center font-bold text-lg">Network Outage</div>
+                                    <i class="fa-solid fa-arrow-down text-2xl text-slate-400 my-2"></i>
+                                    <div class="bg-amber-600 text-white p-4 rounded-lg shadow-lg w-64 text-center font-bold text-lg">Field Engineer Task</div>
+                                </div>
+                                <div class="w-full max-w-md border-t-2 border-dashed border-slate-300 my-6 relative">
+                                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-slate-50 px-4 text-slate-400 font-bold text-sm">ALSO LINKS TO</div>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="bg-blue-600 text-white p-3 rounded shadow w-48 text-center font-bold opacity-70">Customer</div>
+                                    <i class="fa-solid fa-arrow-down text-xl text-slate-400 my-2"></i>
+                                    <div class="bg-teal-600 text-white p-4 rounded-lg shadow-lg w-64 text-center font-bold text-lg">Compensation</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 3 -->
+            <div id="page-phase3" class="page-content">
+                <div class="content-card border-t-4 border-t-emerald-500">
+                    <div class="card-header">
+                        <i class="fa-solid fa-table-columns text-2xl text-emerald-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 3 — FORMS & UI CONFIGURATION</h2>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Form Sections (Tabs)</h3>
+                    
+                    <div class="space-y-6 mb-12">
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                            <h4 class="font-bold text-lg text-purple-700 mb-4"><i class="fa-solid fa-file-lines mr-2"></i>Complaint Form Sections</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Customer Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Complaint Details</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Assignment Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Resolution Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Activity</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                            <h4 class="font-bold text-lg text-indigo-700 mb-4"><i class="fa-solid fa-file-lines mr-2"></i>Outage Form Sections</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Outage Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Area Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Assignment Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Resolution Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Activity</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                            <h4 class="font-bold text-lg text-amber-700 mb-4"><i class="fa-solid fa-file-lines mr-2"></i>Engineer Task Form Sections</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Engineer Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Outage Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Work Information</span>
+                                <i class="fa-solid fa-chevron-right text-slate-300 mt-2"></i>
+                                <span class="bg-slate-100 border border-slate-300 px-4 py-2 rounded shadow-sm text-sm font-medium">Activity</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Related Lists Configuration</h3>
+                    <div class="border rounded-lg overflow-hidden border-slate-200 shadow-sm">
+                        <table class="sn-table">
+                            <thead><tr><th class="w-1/3">Parent Table</th><th>Related List to Add</th></tr></thead>
+                            <tbody>
+                                <tr><td rowspan="2" class="font-bold text-lg align-middle border-b">Customer</td><td class="font-medium bg-slate-50">Complaints</td></tr>
+                                <tr><td class="font-medium bg-slate-50 border-b">Compensation</td></tr>
+                                <tr><td class="font-bold text-lg border-b">Complaint</td><td class="font-medium bg-slate-50 border-b">Outages</td></tr>
+                                <tr><td class="font-bold text-lg">Outage</td><td class="font-medium bg-slate-50">Engineer Tasks</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 4 -->
+            <div id="page-phase4" class="page-content">
+                <div class="content-card border-t-4 border-t-rose-500">
+                    <div class="card-header">
+                        <i class="fa-solid fa-lock text-2xl text-rose-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 4 — SECURITY CONFIGURATION (ACL)</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white border-l-4 border-rose-400 rounded-r-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-2">ACL 1 — CUSTOMER TABLE</h4>
+                            <p class="text-slate-600"><strong class="text-slate-800">Access:</strong> Customers can see only their own records.</p>
+                        </div>
+                        
+                        <div class="bg-white border-l-4 border-rose-400 rounded-r-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-2">ACL 2 — COMPLAINT TABLE</h4>
+                            <p class="text-slate-600"><strong class="text-slate-800">Access:</strong> Only Complaint Resolution Team.</p>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-rose-400 rounded-r-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-2">ACL 3 — OUTAGE TABLE</h4>
+                            <p class="text-slate-600"><strong class="text-slate-800">Access:</strong> Only Network Operations Team.</p>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-rose-400 rounded-r-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-2">ACL 4 — ENGINEER TASK TABLE</h4>
+                            <p class="text-slate-600"><strong class="text-slate-800">Access:</strong> Only Field Engineering Team.</p>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-rose-400 rounded-r-lg p-6 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                            <h4 class="font-bold text-lg text-slate-800 mb-2">ACL 5 — COMPENSATION TABLE</h4>
+                            <p class="text-slate-600"><strong class="text-slate-800">Access:</strong> Only Operations Manager.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 5 -->
+            <div id="page-phase5" class="page-content">
+                <div class="content-card border-t-4 border-t-amber-500">
+                    <div class="card-header">
+                        <i class="fa-brands fa-js text-2xl text-amber-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 5 — CLIENT SIDE SCRIPTING</h2>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div class="bg-slate-800 text-slate-200 rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+                            <div class="bg-slate-900 p-4 font-mono border-b border-slate-700 flex justify-between items-center">
+                                <span class="font-bold text-lg">CLIENT SCRIPT 1 — MOBILE NUMBER VALIDATION</span>
+                                <span class="text-amber-400 bg-amber-400/10 px-3 py-1 rounded font-bold">Type: onSubmit</span>
+                            </div>
+                            <div class="p-6 grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <p class="mb-2"><span class="text-slate-400 uppercase text-xs font-bold tracking-wider">Table</span><br><strong class="text-white text-lg">Customer Profile Table</strong></p>
+                                    <p><span class="text-slate-400 uppercase text-xs font-bold tracking-wider">Fields Used</span><br><strong class="text-white text-lg">Mobile Number</strong></p>
+                                </div>
+                                <div class="bg-slate-900/50 p-4 rounded border border-slate-700">
+                                    <p class="text-slate-400 uppercase text-xs font-bold tracking-wider mb-2">Logic</p>
+                                    <ul class="list-disc pl-5 space-y-1 text-emerald-300 font-mono">
+                                        <li>If mobile number length is less than 10:</li>
+                                        <li class="ml-4">show error</li>
+                                        <li class="ml-4">stop submission</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 text-slate-200 rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+                            <div class="bg-slate-900 p-4 font-mono border-b border-slate-700 flex justify-between items-center">
+                                <span class="font-bold text-lg">CLIENT SCRIPT 2 — AUTO PRIORITY</span>
+                                <span class="text-amber-400 bg-amber-400/10 px-3 py-1 rounded font-bold">Type: onChange</span>
+                            </div>
+                            <div class="p-6 grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <p class="mb-2"><span class="text-slate-400 uppercase text-xs font-bold tracking-wider">Table</span><br><strong class="text-white text-lg">Complaint Table</strong></p>
+                                    <p><span class="text-slate-400 uppercase text-xs font-bold tracking-wider">Fields Used</span><br><strong class="text-white text-lg">Impact Level, Priority</strong></p>
+                                </div>
+                                <div class="bg-slate-900/50 p-4 rounded border border-slate-700">
+                                    <p class="text-slate-400 uppercase text-xs font-bold tracking-wider mb-2">Logic Mapping</p>
+                                    <div class="font-mono text-emerald-300">
+                                        <p>Impact Level: Critical <i class="fa-solid fa-arrow-right mx-2 text-slate-500"></i> Priority: 1</p>
+                                        <p>Impact Level: High     <i class="fa-solid fa-arrow-right mx-2 text-slate-500"></i> Priority: 2</p>
+                                        <p>Impact Level: Medium   <i class="fa-solid fa-arrow-right mx-2 text-slate-500"></i> Priority: 3</p>
+                                        <p>Impact Level: Low      <i class="fa-solid fa-arrow-right mx-2 text-slate-500"></i> Priority: 4</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 text-slate-200 rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+                            <div class="bg-slate-900 p-4 font-mono border-b border-slate-700 flex justify-between items-center">
+                                <span class="font-bold text-lg">CLIENT SCRIPT 3 — ENGINEER VALIDATION</span>
+                                <span class="text-amber-400 bg-amber-400/10 px-3 py-1 rounded font-bold">Type: onSubmit</span>
+                            </div>
+                            <div class="p-6 grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <p class="mb-2"><span class="text-slate-400 uppercase text-xs font-bold tracking-wider">Table</span><br><strong class="text-white text-lg">Engineer Task Table</strong></p>
+                                </div>
+                                <div class="bg-slate-900/50 p-4 rounded border border-slate-700">
+                                    <p class="text-slate-400 uppercase text-xs font-bold tracking-wider mb-2">Logic</p>
+                                    <p class="text-emerald-300 font-mono">Engineer field cannot be empty.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 6 -->
+            <div id="page-phase6" class="page-content">
+                <div class="content-card border-t-4 border-t-indigo-500">
+                    <div class="card-header border-none mb-0 pb-0">
+                        <i class="fa-solid fa-server text-2xl text-indigo-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 6 — SERVER SIDE SCRIPTING</h2>
+                    </div>
+
+                    <!-- Policies Section -->
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">UI Policies & Data Policies</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm">
+                                <h4 class="font-bold text-lg bg-indigo-50 text-indigo-900 p-2 rounded mb-3">UI POLICY 1 — CRITICAL COMPLAINT</h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li><strong>Table:</strong> Complaint Table</li>
+                                    <li><strong>Condition:</strong> Impact Level = Critical</li>
+                                    <li class="pt-2 border-t mt-2"><strong>Actions:</strong> Show Escalation Comments, Make Escalation Comments mandatory.</li>
+                                </ul>
+                            </div>
+                            <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm">
+                                <h4 class="font-bold text-lg bg-indigo-50 text-indigo-900 p-2 rounded mb-3">UI POLICY 2 — OUTAGE REQUIRED</h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li><strong>Table:</strong> Complaint Table</li>
+                                    <li><strong>Condition:</strong> Complaint Type = No Network</li>
+                                    <li class="pt-2 border-t mt-2"><strong>Action:</strong> Make Related Outage mandatory.</li>
+                                </ul>
+                            </div>
+                            <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm">
+                                <h4 class="font-bold text-lg bg-rose-50 text-rose-900 p-2 rounded mb-3">DATA POLICY 1 — MOBILE MANDATORY</h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li><strong>Table:</strong> Customer Table</li>
+                                    <li><strong>Field:</strong> Mobile Number</li>
+                                    <li class="pt-2 border-t mt-2"><strong>Behavior:</strong> Mandatory = True</li>
+                                </ul>
+                            </div>
+                            <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm">
+                                <h4 class="font-bold text-lg bg-rose-50 text-rose-900 p-2 rounded mb-3">DATA POLICY 2 — DESCRIPTION REQUIRED</h4>
+                                <ul class="space-y-2 text-slate-700">
+                                    <li><strong>Table:</strong> Complaint Table</li>
+                                    <li><strong>Field:</strong> Description</li>
+                                    <li class="pt-2 border-t mt-2"><strong>Behavior:</strong> Mandatory = True</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Rules Section -->
+                    <div class="mt-12">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Business Rules</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-slate-50 border border-slate-300 rounded-lg p-5 shadow-sm">
+                                <h4 class="font-bold text-lg text-slate-900 mb-2">BR 1 — CREATE PORTAL USER</h4>
+                                <p class="text-sm font-mono text-indigo-600 mb-3 bg-indigo-100/50 inline-block px-2 py-1 rounded">Customer Table | After Insert</p>
+                                <p class="text-slate-600 mb-2"><strong>Purpose:</strong> Automatically create sys_user.</p>
+                                <ul class="list-disc pl-5 text-slate-700 text-sm space-y-1">
+                                    <li>Create sys_user</li>
+                                    <li>Copy customer name/email</li>
+                                    <li>Assign customer role</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-slate-50 border border-slate-300 rounded-lg p-5 shadow-sm">
+                                <h4 class="font-bold text-lg text-slate-900 mb-2">BR 2 — PREVENT DUPLICATE</h4>
+                                <p class="text-sm font-mono text-indigo-600 mb-3 bg-indigo-100/50 inline-block px-2 py-1 rounded">Customer Table | Before Insert</p>
+                                <p class="text-slate-600"><strong>Logic:</strong> Check duplicate mobile number.</p>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-300 rounded-lg p-5 shadow-sm">
+                                <h4 class="font-bold text-lg text-slate-900 mb-2">BR 3 — AUTO ASSIGN COMPLAINT</h4>
+                                <p class="text-sm font-mono text-indigo-600 mb-3 bg-indigo-100/50 inline-block px-2 py-1 rounded">Complaint Table | Before Insert</p>
+                                <p class="text-slate-600"><strong>Logic:</strong> Assign Complaint Resolution Team.</p>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-300 rounded-lg p-5 shadow-sm">
+                                <h4 class="font-bold text-lg text-slate-900 mb-2">BR 4 — CREATE INCIDENT</h4>
+                                <p class="text-sm font-mono text-indigo-600 mb-3 bg-indigo-100/50 inline-block px-2 py-1 rounded">Complaint Table | After Insert</p>
+                                <p class="text-slate-600 mb-2"><strong>Purpose:</strong> Automatically create Incident.</p>
+                                <ul class="list-disc pl-5 text-slate-700 text-sm space-y-1">
+                                    <li>Create Incident record</li>
+                                    <li>Copy complaint details</li>
+                                    <li>Link incident to complaint</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-300 rounded-lg p-5 shadow-sm">
+                                <h4 class="font-bold text-lg text-slate-900 mb-2">BR 5 — CREATE ENGINEER TASK</h4>
+                                <p class="text-sm font-mono text-indigo-600 mb-3 bg-indigo-100/50 inline-block px-2 py-1 rounded">Outage Table | After Insert</p>
+                                <p class="text-slate-600"><strong>Purpose:</strong> Automatically create engineer task.</p>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-300 rounded-lg p-5 shadow-sm">
+                                <h4 class="font-bold text-lg text-slate-900 mb-2">BR 6 — CLOSE OUTAGE</h4>
+                                <p class="text-sm font-mono text-indigo-600 mb-3 bg-indigo-100/50 inline-block px-2 py-1 rounded">Eng Task Table | After Update</p>
+                                <p class="text-slate-600 mb-2"><strong>Condition:</strong> Engineer Status = Work Completed</p>
+                                <p class="text-slate-600"><strong>Logic:</strong> Close outage automatically.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Script Includes & GlideAjax -->
+                    <div class="mt-12">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Script Includes & GlideAjax</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+                                <table class="sn-table">
+                                    <thead><tr class="bg-slate-800 text-white"><th class="text-slate-200 w-1/3">Script Include Name</th><th class="text-slate-200 w-1/3">Purpose</th><th class="text-slate-200 w-1/3">Functions</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-mono font-bold text-lg">CustomerUtils</td><td>Customer validation.</td><td><ul class="list-disc pl-4"><li>Validate customer</li><li>Check duplicate customer</li></ul></td></tr>
+                                        <tr><td class="font-mono font-bold text-lg">ComplaintUtils</td><td>Complaint processing.</td><td><ul class="list-disc pl-4"><li>Set priority</li><li>Assignment logic</li></ul></td></tr>
+                                        <tr><td class="font-mono font-bold text-lg">EngineerUtils</td><td>Engineer handling.</td><td><ul class="list-disc pl-4"><li>Create engineer task</li><li>Find engineer</li></ul></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+                                <table class="sn-table">
+                                    <thead><tr class="bg-indigo-800 text-white"><th class="text-indigo-100 w-1/3">GlideAjax Call</th><th class="text-indigo-100 w-1/3">Purpose</th><th class="text-indigo-100 w-1/3">Input/Output</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-bold text-lg">CUSTOMER LOOKUP</td><td>Fetch customer details.</td><td><strong>In:</strong> Mobile Number<br><strong>Out:</strong> Name, Email, Plan</td></tr>
+                                        <tr><td class="font-bold text-lg">AREA VALIDATION</td><td>Validate impacted area.</td><td>Standard input/output validation.</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 7 -->
+            <div id="page-phase7" class="page-content">
+                <div class="content-card border-t-4 border-t-cyan-500">
+                    <div class="card-header">
+                        <i class="fa-solid fa-code-branch text-2xl text-cyan-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 7 — AUTOMATION (FLOW DESIGNER)</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start">
+                            <div class="bg-blue-100 p-4 rounded-full text-blue-600 text-2xl shrink-0"><i class="fa-solid fa-user-plus w-8 text-center"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">FLOW 1 — CUSTOMER REGISTRATION</h3>
+                                <p class="text-amber-600 font-bold mb-3 bg-amber-50 inline-block px-3 py-1 rounded">Trigger: Customer created.</p>
+                                <div class="flex flex-wrap items-center gap-3 font-medium text-slate-700">
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Create sys_user</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Assign role</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Send welcome notification</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start">
+                            <div class="bg-purple-100 p-4 rounded-full text-purple-600 text-2xl shrink-0"><i class="fa-solid fa-headset w-8 text-center"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">FLOW 2 — COMPLAINT FLOW</h3>
+                                <p class="text-amber-600 font-bold mb-3 bg-amber-50 inline-block px-3 py-1 rounded">Trigger: Complaint created.</p>
+                                <div class="flex flex-wrap items-center gap-3 font-medium text-slate-700">
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Set priority</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Assign complaint group</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Create incident</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Send notification</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start">
+                            <div class="bg-rose-100 p-4 rounded-full text-rose-600 text-2xl shrink-0"><i class="fa-solid fa-triangle-exclamation w-8 text-center"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">FLOW 3 — INCIDENT FLOW</h3>
+                                <p class="text-amber-600 font-bold mb-3 bg-amber-50 inline-block px-3 py-1 rounded">Trigger: Incident created.</p>
+                                <div class="flex flex-wrap items-center gap-3 font-medium text-slate-700">
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Assign ITSM Support Team</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Notify support team</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start">
+                            <div class="bg-indigo-100 p-4 rounded-full text-indigo-600 text-2xl shrink-0"><i class="fa-solid fa-wifi w-8 text-center"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">FLOW 4 — OUTAGE FLOW</h3>
+                                <p class="text-amber-600 font-bold mb-3 bg-amber-50 inline-block px-3 py-1 rounded">Trigger: Outage created.</p>
+                                <div class="flex flex-wrap items-center gap-3 font-medium text-slate-700">
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Assign Network Ops Team</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Create engineer task</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Send outage notification</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start">
+                            <div class="bg-teal-100 p-4 rounded-full text-teal-600 text-2xl shrink-0"><i class="fa-solid fa-person-digging w-8 text-center"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">FLOW 5 — ENGINEER FLOW</h3>
+                                <p class="text-amber-600 font-bold mb-3 bg-amber-50 inline-block px-3 py-1 rounded">Trigger: Engineer task updated.</p>
+                                <div class="flex flex-wrap items-center gap-3 font-medium text-slate-700">
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Update outage state</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Close outage</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start">
+                            <div class="bg-green-100 p-4 rounded-full text-green-600 text-2xl shrink-0"><i class="fa-solid fa-money-bill-wave w-8 text-center"></i></div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">FLOW 6 — COMPENSATION FLOW</h3>
+                                <p class="text-amber-600 font-bold mb-3 bg-amber-50 inline-block px-3 py-1 rounded">Trigger: Compensation created.</p>
+                                <div class="flex flex-wrap items-center gap-3 font-medium text-slate-700">
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Send approval</span> <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                    <span class="bg-slate-100 px-3 py-2 rounded border border-slate-300">Notify customer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 8 -->
+            <div id="page-phase8" class="page-content">
+                <div class="content-card border-t-4 border-t-orange-500">
+                    <div class="card-header border-none pb-0 mb-4">
+                        <i class="fa-solid fa-stopwatch text-2xl text-orange-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 8 — SLA + EVENTS + NOTIFICATIONS</h2>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-12 mt-6">
+                        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+                            <div class="bg-slate-100 p-4 border-b border-slate-200">
+                                <h3 class="text-lg font-bold text-slate-800">COMPLAINT SLA</h3>
+                                <p class="text-sm text-slate-600 mt-1">Table: Complaint Table</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 border-b border-slate-200 text-sm space-y-1">
+                                <p><strong>Start Condition:</strong> State = Open</p>
+                                <p><strong>Pause Condition:</strong> State = Pending</p>
+                                <p><strong>Stop Condition:</strong> State = Resolved OR Closed</p>
+                            </div>
+                            <table class="sn-table">
+                                <thead><tr><th>Priority</th><th>Time</th></tr></thead>
+                                <tbody>
+                                    <tr><td><span class="bg-rose-100 text-rose-800 px-2 py-1 rounded font-bold text-xs uppercase">Critical</span></td><td class="font-bold">1 Hour</td></tr>
+                                    <tr><td><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded font-bold text-xs uppercase">High</span></td><td class="font-bold">4 Hours</td></tr>
+                                    <tr><td><span class="bg-amber-100 text-amber-800 px-2 py-1 rounded font-bold text-xs uppercase">Medium</span></td><td class="font-bold">8 Hours</td></tr>
+                                    <tr><td><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold text-xs uppercase">Low</span></td><td class="font-bold">24 Hours</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+                            <div class="bg-slate-100 p-4 border-b border-slate-200">
+                                <h3 class="text-lg font-bold text-slate-800">OUTAGE SLA</h3>
+                                <p class="text-sm text-slate-600 mt-1">Table: Outage Table</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 border-b border-slate-200 text-sm space-y-1">
+                                <p><strong>Start Condition:</strong> State = Open</p>
+                                <p class="invisible">Spacer</p> <!-- Alignment -->
+                                <p><strong>Stop Condition:</strong> State = Resolved</p>
+                            </div>
+                            <table class="sn-table">
+                                <thead><tr><th>Severity</th><th>Time</th></tr></thead>
+                                <tbody>
+                                    <tr><td><span class="bg-rose-100 text-rose-800 px-2 py-1 rounded font-bold text-xs uppercase">Critical</span></td><td class="font-bold">30 Minutes</td></tr>
+                                    <tr><td><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded font-bold text-xs uppercase">High</span></td><td class="font-bold">2 Hours</td></tr>
+                                    <tr><td><span class="bg-amber-100 text-amber-800 px-2 py-1 rounded font-bold text-xs uppercase">Medium</span></td><td class="font-bold">4 Hours</td></tr>
+                                    <tr><td><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold text-xs uppercase">Low</span></td><td class="font-bold">8 Hours</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Events Registry</h3>
+                            <div class="border rounded-lg overflow-hidden shadow-sm">
+                                <table class="sn-table">
+                                    <thead><tr><th>Event Name</th><th>Purpose</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-mono text-blue-600 font-semibold bg-blue-50/50">customer.created</td><td>Customer registration</td></tr>
+                                        <tr><td class="font-mono text-blue-600 font-semibold bg-blue-50/50">complaint.created</td><td>Complaint created</td></tr>
+                                        <tr><td class="font-mono text-blue-600 font-semibold bg-blue-50/50">incident.created</td><td>Incident created</td></tr>
+                                        <tr><td class="font-mono text-blue-600 font-semibold bg-blue-50/50">outage.created</td><td>Outage created</td></tr>
+                                        <tr><td class="font-mono text-blue-600 font-semibold bg-blue-50/50">engineer.assigned</td><td>Engineer assigned</td></tr>
+                                        <tr><td class="font-mono text-blue-600 font-semibold bg-blue-50/50">compensation.approved</td><td>Compensation approved</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Email Notifications</h3>
+                            <div class="border rounded-lg overflow-hidden shadow-sm">
+                                <table class="sn-table">
+                                    <thead><tr><th>Notification</th><th>Trigger Event</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="font-bold">Welcome Notification</td><td class="font-mono text-slate-500 text-xs">customer.created</td></tr>
+                                        <tr><td class="font-bold">Complaint Confirmation</td><td class="font-mono text-slate-500 text-xs">complaint.created</td></tr>
+                                        <tr><td class="font-bold">Incident Created</td><td class="font-mono text-slate-500 text-xs">incident.created</td></tr>
+                                        <tr><td class="font-bold">Outage Alert</td><td class="font-mono text-slate-500 text-xs">outage.created</td></tr>
+                                        <tr><td class="font-bold">Engineer Assigned</td><td class="font-mono text-slate-500 text-xs">engineer.assigned</td></tr>
+                                        <tr><td class="font-bold">Compensation Approved</td><td class="font-mono text-slate-500 text-xs">compensation.approved</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 9 -->
+            <div id="page-phase9" class="page-content">
+                <div class="content-card border-t-4 border-t-teal-500">
+                    <div class="card-header">
+                        <i class="fa-solid fa-laptop text-2xl text-teal-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 9 — SERVICE PORTAL</h2>
+                    </div>
+
+                    <div class="bg-teal-900 text-white p-6 rounded-xl shadow-md mb-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div>
+                            <p class="text-teal-300 font-bold tracking-wider text-xs uppercase mb-1">Portal Name</p>
+                            <h3 class="text-3xl font-bold">Telecom Customer Portal</h3>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded border border-teal-500/30">
+                            <h4 class="font-bold text-rose-300 mb-2 border-b border-white/20 pb-1"><i class="fa-solid fa-ban mr-2"></i>IMPORTANT PORTAL RULE</h4>
+                            <p class="text-sm"><strong>USE:</strong> Record Producers, Data Table, Simple List.</p>
+                            <p class="text-sm"><strong>DO NOT CREATE:</strong> Advanced Angular widgets, Complex scripting.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Total Portal Pages</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        
+                        <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-1">1. Home Page</h4>
+                            <p class="text-sm text-slate-500 mb-3">Landing page</p>
+                            <div class="bg-slate-50 p-3 rounded border text-sm">
+                                <strong class="block mb-2 text-slate-700">Widgets Used:</strong>
+                                <ul class="list-disc pl-5 text-slate-600 space-y-1">
+                                    <li>Welcome Widget (Portal intro)</li>
+                                    <li>Quick Links Widget (Navigation)</li>
+                                    <li>My Complaints Widget (Customer visibility)</li>
+                                    <li>Active Outages Widget (Outage visibility)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-1">2. Customer Registration</h4>
+                            <p class="text-sm text-slate-500 mb-3">Register customer</p>
+                            <div class="bg-slate-50 p-3 rounded border text-sm">
+                                <p class="mb-2"><strong class="text-slate-700">Component:</strong> <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-medium text-xs">Record Producer</span></p>
+                                <p><strong class="text-slate-700">Fields:</strong> Full Name, Mobile Number, Email, Address, Service Plan.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-1">3. Raise Complaint</h4>
+                            <p class="text-sm text-slate-500 mb-3">Create complaint</p>
+                            <div class="bg-slate-50 p-3 rounded border text-sm">
+                                <p class="mb-2"><strong class="text-slate-700">Component:</strong> <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-medium text-xs">Record Producer</span></p>
+                                <p><strong class="text-slate-700">Fields:</strong> Complaint Type, Area Impacted, Impact Level, Description.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-1">4. My Complaints</h4>
+                            <p class="text-sm text-slate-500 mb-3">View complaints</p>
+                            <div class="bg-slate-50 p-3 rounded border text-sm">
+                                <p class="mb-2"><strong class="text-slate-700">Widget:</strong> <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded font-medium text-xs">Data Table Widget</span></p>
+                                <p><strong class="text-slate-700">Columns:</strong> Number, State, Priority, Assigned To, Created.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-1">5. Outage Status</h4>
+                            <p class="text-sm text-slate-500 mb-3">View outages</p>
+                            <div class="bg-slate-50 p-3 rounded border text-sm">
+                                <p class="mb-2"><strong class="text-slate-700">Widget:</strong> <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded font-medium text-xs">Simple List Widget</span></p>
+                                <p><strong class="text-slate-700">Columns:</strong> Number, Area, Severity, State.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-lg p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-lg text-slate-800 mb-1">6. Compensation Request</h4>
+                            <p class="text-sm text-slate-500 mb-3">Request compensation</p>
+                            <div class="bg-slate-50 p-3 rounded border text-sm">
+                                <p class="mb-2"><strong class="text-slate-700">Component:</strong> <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-medium text-xs">Record Producer</span></p>
+                                <p><strong class="text-slate-700">Fields:</strong> Complaint, Compensation Type, Reason.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 10 -->
+            <div id="page-phase10" class="page-content">
+                <div class="content-card border-t-4 border-t-pink-500">
+                    <div class="card-header border-none pb-0 mb-4">
+                        <i class="fa-solid fa-chart-pie text-2xl text-pink-500"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 10 — REPORTS & DASHBOARD</h2>
+                    </div>
+
+                    <div class="bg-slate-100 p-6 rounded-lg mb-10 border border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Dashboard: Telecom Operations Dashboard</h3>
+                        <p class="text-slate-700"><strong>Dashboard Users:</strong></p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1 text-slate-600">
+                            <li><strong class="text-slate-800">Operations Manager:</strong> KPI monitoring</li>
+                            <li><strong class="text-slate-800">Complaint Agent:</strong> Complaint tracking</li>
+                            <li><strong class="text-slate-800">Network Engineer:</strong> Outage tracking</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Dashboard Widgets</h3>
+                    <!-- Reduced column count to prevent overlap -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-slate-800 mb-2">1. OPEN COMPLAINTS</h4>
+                            <p class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded inline-block font-bold mb-3">Type: KPI</p>
+                            <p class="text-sm text-slate-600"><strong>Table:</strong> Complaint Table</p>
+                            <p class="text-sm text-slate-600"><strong>Filter:</strong> State is not Closed</p>
+                            <p class="text-sm text-slate-600 mt-2 border-t pt-2"><strong>Purpose:</strong> Track active complaints.</p>
+                        </div>
+                        
+                        <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-slate-800 mb-2">2. ACTIVE OUTAGES</h4>
+                            <p class="text-xs bg-rose-100 text-rose-800 px-2 py-1 rounded inline-block font-bold mb-3">Type: KPI</p>
+                            <p class="text-sm text-slate-600"><strong>Table:</strong> Outage Table</p>
+                            <p class="text-sm text-slate-600"><strong>Filter:</strong> State is not Resolved</p>
+                            <p class="text-sm text-slate-600 mt-2 border-t pt-2"><strong>Purpose:</strong> Track active outages.</p>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-slate-800 mb-2">3. SLA BREACHES</h4>
+                            <p class="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded inline-block font-bold mb-3"><i class="fa-solid fa-chart-column mr-1"></i>Type: Bar Chart</p>
+                            <p class="text-sm text-slate-600"><strong>Table:</strong> Task SLA</p>
+                            <p class="text-sm text-slate-600 mt-2 border-t pt-2"><strong>Purpose:</strong> Track SLA violations.</p>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-slate-800 mb-2">4. ENGINEER WORKLOAD</h4>
+                            <p class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded inline-block font-bold mb-3"><i class="fa-solid fa-chart-pie mr-1"></i>Type: Pie Chart</p>
+                            <p class="text-sm text-slate-600"><strong>Table:</strong> Engineer Task Table</p>
+                            <p class="text-sm text-slate-600"><strong>Group By:</strong> Assigned To</p>
+                            <p class="text-sm text-slate-600 mt-2 border-t pt-2"><strong>Purpose:</strong> Track engineer workload.</p>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-slate-800 mb-2">5. COMPLAINT TREND</h4>
+                            <p class="text-xs bg-emerald-100 text-emerald-800 px-2 py-1 rounded inline-block font-bold mb-3"><i class="fa-solid fa-chart-line mr-1"></i>Type: Line Chart</p>
+                            <p class="text-sm text-slate-600"><strong>Table:</strong> Complaint Table</p>
+                            <p class="text-sm text-slate-600"><strong>Group By:</strong> Created Date</p>
+                            <p class="text-sm text-slate-600 mt-2 border-t pt-2"><strong>Purpose:</strong> Track complaint trends.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Standalone Reports</h3>
+                    <div class="border rounded-lg overflow-hidden border-slate-200 shadow-sm">
+                        <table class="sn-table">
+                            <thead><tr><th>Report Name</th><th>Type</th><th>Group By</th><th>Purpose</th></tr></thead>
+                            <tbody>
+                                <tr><td class="font-bold text-slate-800">Complaints by Type</td><td>Pie Chart</td><td>Complaint Type</td><td>Most common complaint types.</td></tr>
+                                <tr><td class="font-bold text-slate-800">Open Outages</td><td>List Report</td><td>—</td><td>View active outages.</td></tr>
+                                <tr><td class="font-bold text-slate-800">Engineer Task Status</td><td>Bar Chart</td><td>State</td><td>Track engineer task progress.</td></tr>
+                                <tr><td class="font-bold text-slate-800">SLA Breach Report</td><td>List Report</td><td>—</td><td>Track breached SLAs.</td></tr>
+                                <tr><td class="font-bold text-slate-800">Complaint Trend Report</td><td>Line Chart</td><td>—</td><td>Track complaint increase/decrease.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: PHASE 11 -->
+            <div id="page-phase11" class="page-content">
+                <div class="content-card border-t-4 border-t-emerald-600">
+                    <div class="card-header">
+                        <i class="fa-solid fa-flag-checkered text-2xl text-emerald-600"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">PHASE 11 — FINAL DEMO & RULES</h2>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-10">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2"><i class="fa-solid fa-route mr-2 text-slate-400"></i>Complete Demo Flow</h3>
+                            <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-md">
+                                <ul class="relative border-l-2 border-slate-300 ml-4 space-y-6 text-lg font-medium text-slate-700">
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-blue-500 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 1. Customer Registration</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-slate-400 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 2. Portal Login</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-purple-500 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 3. Raise Complaint</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-slate-400 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 4. Complaint Assignment</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-rose-500 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 5. Incident Creation</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-indigo-500 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 6. Outage Creation</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-amber-500 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 7. Engineer Task Creation</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-slate-400 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 8. Engineer Resolution</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-teal-500 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 9. Outage Closure</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-orange-500 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 10. SLA Tracking</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-slate-400 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 11. Notification Trigger</li>
+                                    <li class="pl-8 relative"><span class="absolute w-4 h-4 bg-emerald-600 rounded-full left-[-9px] top-1 border-2 border-white shadow"></span> 12. Dashboard Update</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2"><i class="fa-solid fa-scale-balanced mr-2 text-slate-400"></i>Final Beginner Rules</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white border-l-4 border-rose-500 p-4 shadow-sm rounded-r-lg">
+                                    <strong class="text-slate-900 block mb-1">RULE 1</strong>
+                                    <span class="text-slate-600">Use existing Task fields. Do not create duplicate fields.</span>
+                                </div>
+                                <div class="bg-white border-l-4 border-slate-800 p-4 shadow-sm rounded-r-lg">
+                                    <strong class="text-slate-900 block mb-1">RULE 2</strong>
+                                    <span class="text-slate-600">Keep Business Rules simple.</span>
+                                </div>
+                                <div class="bg-white border-l-4 border-slate-800 p-4 shadow-sm rounded-r-lg">
+                                    <strong class="text-slate-900 block mb-1">RULE 3</strong>
+                                    <span class="text-slate-600">Keep Flow Designer simple. Maximum 3–5 actions.</span>
+                                </div>
+                                <div class="bg-white border-l-4 border-slate-800 p-4 shadow-sm rounded-r-lg">
+                                    <strong class="text-slate-900 block mb-1">RULE 4</strong>
+                                    <span class="text-slate-600">Use Record Producers in Service Portal.</span>
+                                </div>
+                                <div class="bg-white border-l-4 border-slate-800 p-4 shadow-sm rounded-r-lg">
+                                    <strong class="text-slate-900 block mb-1">RULE 5</strong>
+                                    <span class="text-slate-600">Avoid advanced scripting.</span>
+                                </div>
+                                <div class="bg-white border-l-4 border-slate-800 p-4 shadow-sm rounded-r-lg">
+                                    <strong class="text-slate-900 block mb-1">RULE 6</strong>
+                                    <span class="text-slate-600">Test every module separately.</span>
+                                </div>
+                                <div class="bg-white border-l-4 border-slate-800 p-4 shadow-sm rounded-r-lg">
+                                    <strong class="text-slate-900 block mb-1">RULE 7</strong>
+                                    <span class="text-slate-600">Keep forms simple and clean.</span>
+                                </div>
+                                <div class="bg-white border-l-4 border-blue-500 p-4 shadow-sm rounded-r-lg bg-blue-50/50">
+                                    <strong class="text-blue-900 block mb-1">RULE 8 - Always test before final demo:</strong>
+                                    <span class="text-blue-700 font-medium">SLA, Notifications, Assignments, Portal submission, Incident creation.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-16 bg-slate-900 text-white p-8 rounded-xl text-center shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-emerald-400"><i class="fa-solid fa-graduation-cap mr-3 text-3xl align-middle"></i>Final Project Outcome</h3>
+                        <p class="text-slate-300 text-lg max-w-4xl mx-auto leading-relaxed">
+                            After completing this project students will understand CSA fundamentals, Incident management, Task management, Table relationships, Service Portal, Flow Designer, Notifications, SLA, ACL, Client Scripts, UI Policies, Business Rules, Script Includes, Reporting, Dashboard creation, and the End-to-end ServiceNow development lifecycle.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page-content');
+            const mainContainer = document.getElementById('main-container');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active state from all links
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active state to clicked link
+                    link.classList.add('active');
+
+                    // Get target page ID
+                    const targetId = link.getAttribute('data-target');
+
+                    // Hide all pages
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+
+                    // Show target page
+                    const targetPage = document.getElementById(targetId);
+                    if (targetPage) {
+                        targetPage.classList.add('active');
+                    }
+
+                    // Scroll to top of the content area for a fresh "page load" feel
+                    mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
